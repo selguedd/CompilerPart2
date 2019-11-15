@@ -1,0 +1,5 @@
+Exception in thread "main" java.util.regex.PatternSyntaxException: Unmatched token, out of symbols near index 0
+,
+^
+	at LexicalAnalyzer.nextToken(LexicalAnalyzer.java:685)
+	at Main.main(Main.java:30)

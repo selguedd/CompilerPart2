@@ -1,0 +1,20 @@
+0
+[Program]
+1
+[Code, Program]
+2
+[Code, Program, InstList]
+3
+[Code, Instruction, Program, InstList, Ints]
+4
+[Code, While, Instruction, Program, Print, If, InstList, Assign, Read, Ints, For]
+5
+[Instruction, Program, InstList, Assign, Read, IfTail, Code, ExprArith, While, Print, If, Ints, For, Cond]
+6
+[Instruction, Program, OrExp, InstList, Assign, Read, IfTail, Code, ExprArith, While, Print, If, ProdEx, ExprTail, AndExp, Ints, For, Cond]
+7
+[Condis, ProdTail, Instruction, Program, OrExp, AddSous, InstList, Assign, Read, IfTail, Code, ExprArith, While, Print, If, ProdEx, CondTail, ExprTail, AndExp, ProdAtom, Ints, For, Cond]
+8
+[Condis, Instruction, AddSous, Comp, InstList, Read, Code, ExprArith, While, If, AndExp, For, Cond, ProdTail, Program, OrExp, ProdDiv, Assign, IfTail, Print, ProdEx, CondTail, ExprTail, ProdAtom, Ints]
+9
+[Condis, Instruction, AddSous, Comp, InstList, Read, Code, ExprArith, While, If, AndExp, For, Cond, ProdTail, Program, OrExp, ProdDiv, Assign, IfTail, Print, ProdEx, CondTail, ExprTail, ProdAtom, Ints]

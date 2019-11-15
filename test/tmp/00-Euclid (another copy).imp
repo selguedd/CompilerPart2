@@ -1,0 +1,2 @@
+begin read(a);read(b);while b<>0do c:=b;while a>=b do a:=a-bdone;b:=a;a:=cdone;print(a)end
+ifwhile

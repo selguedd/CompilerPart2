@@ -1,0 +1,48 @@
+<Program> -->  BEG <Code> END
+<Code> --> EPSILON
+<Code> --> <InstList>
+<InstList> --> <Instruction> <Ints>
+<Ints> --> SEMICOLON <InstList>
+<Ints> --> EPSILON
+<Instruction> --> <Assign>
+<Instruction> --> <If>
+<Instruction> --> <While>
+<Instruction> --> <For>
+<Instruction> --> <Print>
+<Instruction> --> <Read>
+<Assign> --> [VARNAME] ASSIGN <ExprArith>
+<ExprArith> --> <ProdEx> <ExprTail>
+<ExprTail>  --> <AddSous> <ProdEx> <ExprTail>
+<ExprTail>  --> EPSILON
+<ProdEx> --> <ProdAtom> <ProdTail> 
+<ProdTail> --> <ProdDiv> <ProdAtom> <ProdTail> 
+<ProdTail>  --> EPSILON
+<ProdAtom> --> LEFT_PARENTHESIS <ExprArith> RIGHT_PARENTHESIS
+<ProdAtom> --> MINUS <ProdAtom>
+<ProdAtom> --> [VARNAME]
+<ProdAtom> --> [NUMBER] 
+<AddSous> --> PLUS
+<AddSous> --> MINUS
+<ProdDiv> --> TIMES
+<ProdDiv> --> DIVIDE
+<If> --> IF <Cond> THEN <Code> <IfTail>
+<IfTail> --> ENDIF
+<IfTail> --> ELSE <Code> ENDIF
+<Cond> --> <AndExp> <OrExp>
+<OrExp>--> OR <AndExp> <OrExp>
+<OrExp>--> EPSILON
+<AndExp> --> <Condis> <CondTail>
+<CondTail>--> AND <Condis> <CondTail>
+<CondTail>--> EPSILON
+<Condis> --> NOT <Condis>
+<Condis> --> <ExprArith> <Comp> <ExprArith>
+<Comp> --> EQUAL
+<Comp> --> GREATER_EQUAL
+<Comp> --> GREATER
+<Comp> --> SMALLER_EQUAL
+<Comp> --> SMALLER
+<Comp> --> DIFFERENT
+<While> --> WHILE <Cond> DO <Code> ENDWHILE
+<For> --> FOR [VARNAME] FROM <ExprArith> BY <ExprArith> TO <ExprArith> DO <Code> ENDWHILE
+<Print> --> PRINT LEFT_PARENTHESIS [VARNAME] RIGHT_PARENTHESIS
+<Read> --> READ LEFT_PARENTHESIS [VARNAME] RIGHT_PARENTHESIS

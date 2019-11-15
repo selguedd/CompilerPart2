@@ -1,0 +1,125 @@
+Variable: Condis Terminal: NOT Rule: [NOT, Condis] 37
+Variable: Condis Terminal: NUMBER Rule: [ExprArith, Comp, ExprArith] 38
+Variable: Condis Terminal: LEFT_PARENTHESIS Rule: [ExprArith, Comp, ExprArith] 38
+Variable: Condis Terminal: MINUS Rule: [ExprArith, Comp, ExprArith] 38
+Variable: Condis Terminal: VARNAME Rule: [ExprArith, Comp, ExprArith] 38
+Variable: Instruction Terminal: IF Rule: [If] 8
+Variable: Instruction Terminal: PRINT Rule: [Print] 11
+Variable: Instruction Terminal: VARNAME Rule: [Assign] 7
+Variable: Instruction Terminal: READ Rule: [Read] 12
+Variable: Instruction Terminal: FOR Rule: [For] 10
+Variable: Instruction Terminal: WHILE Rule: [While] 9
+Variable: AddSous Terminal: PLUS Rule: [PLUS] 24
+Variable: AddSous Terminal: MINUS Rule: [MINUS] 25
+Variable: Comp Terminal: GREATER Rule: [GREATER] 41
+Variable: Comp Terminal: GREATER_EQUAL Rule: [GREATER_EQUAL] 40
+Variable: Comp Terminal: EQUAL Rule: [EQUAL] 39
+Variable: Comp Terminal: SMALLER Rule: [SMALLER] 43
+Variable: Comp Terminal: SMALLER_EQUAL Rule: [SMALLER_EQUAL] 42
+Variable: Comp Terminal: DIFFERENT Rule: [DIFFERENT] 44
+Variable: InstList Terminal: IF Rule: [Instruction, Ints] 4
+Variable: InstList Terminal: PRINT Rule: [Instruction, Ints] 4
+Variable: InstList Terminal: VARNAME Rule: [Instruction, Ints] 4
+Variable: InstList Terminal: READ Rule: [Instruction, Ints] 4
+Variable: InstList Terminal: FOR Rule: [Instruction, Ints] 4
+Variable: InstList Terminal: WHILE Rule: [Instruction, Ints] 4
+Variable: Read Terminal: READ Rule: [READ, LEFT_PARENTHESIS, VARNAME, RIGHT_PARENTHESIS] 48
+Variable: Code Terminal: ENDWHILE Rule: [EPSILON] 2
+Variable: Code Terminal: IF Rule: [InstList] 3
+Variable: Code Terminal: PRINT Rule: [InstList] 3
+Variable: Code Terminal: VARNAME Rule: [InstList] 3
+Variable: Code Terminal: READ Rule: [InstList] 3
+Variable: Code Terminal: FOR Rule: [InstList] 3
+Variable: Code Terminal: ELSE Rule: [EPSILON] 2
+Variable: Code Terminal: ENDIF Rule: [EPSILON] 2
+Variable: Code Terminal: END Rule: [EPSILON] 2
+Variable: Code Terminal: WHILE Rule: [InstList] 3
+Variable: ExprArith Terminal: NUMBER Rule: [ProdEx, ExprTail] 14
+Variable: ExprArith Terminal: LEFT_PARENTHESIS Rule: [ProdEx, ExprTail] 14
+Variable: ExprArith Terminal: MINUS Rule: [ProdEx, ExprTail] 14
+Variable: ExprArith Terminal: VARNAME Rule: [ProdEx, ExprTail] 14
+Variable: While Terminal: WHILE Rule: [WHILE, Cond, DO, Code, ENDWHILE] 45
+Variable: If Terminal: IF Rule: [IF, Cond, THEN, Code, IfTail] 28
+Variable: AndExp Terminal: NOT Rule: [Condis, CondTail] 34
+Variable: AndExp Terminal: NUMBER Rule: [Condis, CondTail] 34
+Variable: AndExp Terminal: LEFT_PARENTHESIS Rule: [Condis, CondTail] 34
+Variable: AndExp Terminal: MINUS Rule: [Condis, CondTail] 34
+Variable: AndExp Terminal: VARNAME Rule: [Condis, CondTail] 34
+Variable: For Terminal: FOR Rule: [FOR, VARNAME, FROM, ExprArith, BY, ExprArith, TO, ExprArith, DO, Code, ENDWHILE] 46
+Variable: Cond Terminal: NOT Rule: [AndExp, OrExp] 31
+Variable: Cond Terminal: NUMBER Rule: [AndExp, OrExp] 31
+Variable: Cond Terminal: LEFT_PARENTHESIS Rule: [AndExp, OrExp] 31
+Variable: Cond Terminal: MINUS Rule: [AndExp, OrExp] 31
+Variable: Cond Terminal: VARNAME Rule: [AndExp, OrExp] 31
+Variable: ProdTail Terminal: DIVIDE Rule: [ProdDiv, ProdAtom, ProdTail] 18
+Variable: ProdTail Terminal: OR Rule: [EPSILON] 19
+Variable: ProdTail Terminal: ENDWHILE Rule: [EPSILON] 19
+Variable: ProdTail Terminal: AND Rule: [EPSILON] 19
+Variable: ProdTail Terminal: SEMICOLON Rule: [EPSILON] 19
+Variable: ProdTail Terminal: MINUS Rule: [EPSILON] 19
+Variable: ProdTail Terminal: SMALLER Rule: [EPSILON] 19
+Variable: ProdTail Terminal: RIGHT_PARENTHESIS Rule: [EPSILON] 19
+Variable: ProdTail Terminal: EPSILON Rule: [EPSILON] 19
+Variable: ProdTail Terminal: THEN Rule: [EPSILON] 19
+Variable: ProdTail Terminal: SMALLER_EQUAL Rule: [EPSILON] 19
+Variable: ProdTail Terminal: ENDIF Rule: [EPSILON] 19
+Variable: ProdTail Terminal: GREATER Rule: [EPSILON] 19
+Variable: ProdTail Terminal: GREATER_EQUAL Rule: [EPSILON] 19
+Variable: ProdTail Terminal: EQUAL Rule: [EPSILON] 19
+Variable: ProdTail Terminal: TO Rule: [EPSILON] 19
+Variable: ProdTail Terminal: PLUS Rule: [EPSILON] 19
+Variable: ProdTail Terminal: DO Rule: [EPSILON] 19
+Variable: ProdTail Terminal: TIMES Rule: [ProdDiv, ProdAtom, ProdTail] 18
+Variable: ProdTail Terminal: ELSE Rule: [EPSILON] 19
+Variable: ProdTail Terminal: DIFFERENT Rule: [EPSILON] 19
+Variable: ProdTail Terminal: END Rule: [EPSILON] 19
+Variable: ProdTail Terminal: BY Rule: [EPSILON] 19
+Variable: Program Terminal: BEG Rule: [BEG, Code, END] 1
+Variable: ProdDiv Terminal: DIVIDE Rule: [DIVIDE] 27
+Variable: ProdDiv Terminal: TIMES Rule: [TIMES] 26
+Variable: OrExp Terminal: OR Rule: [OR, AndExp, OrExp] 32
+Variable: OrExp Terminal: DO Rule: [EPSILON] 33
+Variable: OrExp Terminal: THEN Rule: [EPSILON] 33
+Variable: Assign Terminal: VARNAME Rule: [VARNAME, ASSIGN, ExprArith] 13
+Variable: IfTail Terminal: ELSE Rule: [ELSE, Code, ENDIF] 30
+Variable: IfTail Terminal: ENDIF Rule: [ENDIF] 29
+Variable: Print Terminal: PRINT Rule: [PRINT, LEFT_PARENTHESIS, VARNAME, RIGHT_PARENTHESIS] 47
+Variable: ProdEx Terminal: NUMBER Rule: [ProdAtom, ProdTail] 17
+Variable: ProdEx Terminal: LEFT_PARENTHESIS Rule: [ProdAtom, ProdTail] 17
+Variable: ProdEx Terminal: MINUS Rule: [ProdAtom, ProdTail] 17
+Variable: ProdEx Terminal: VARNAME Rule: [ProdAtom, ProdTail] 17
+Variable: CondTail Terminal: OR Rule: [EPSILON] 36
+Variable: CondTail Terminal: AND Rule: [AND, Condis, CondTail] 35
+Variable: CondTail Terminal: DO Rule: [EPSILON] 36
+Variable: CondTail Terminal: EPSILON Rule: [EPSILON] 36
+Variable: CondTail Terminal: THEN Rule: [EPSILON] 36
+Variable: ExprTail Terminal: OR Rule: [EPSILON] 16
+Variable: ExprTail Terminal: ENDWHILE Rule: [EPSILON] 16
+Variable: ExprTail Terminal: AND Rule: [EPSILON] 16
+Variable: ExprTail Terminal: SEMICOLON Rule: [EPSILON] 16
+Variable: ExprTail Terminal: MINUS Rule: [AddSous, ProdEx, ExprTail] 15
+Variable: ExprTail Terminal: SMALLER Rule: [EPSILON] 16
+Variable: ExprTail Terminal: RIGHT_PARENTHESIS Rule: [EPSILON] 16
+Variable: ExprTail Terminal: EPSILON Rule: [EPSILON] 16
+Variable: ExprTail Terminal: THEN Rule: [EPSILON] 16
+Variable: ExprTail Terminal: SMALLER_EQUAL Rule: [EPSILON] 16
+Variable: ExprTail Terminal: ENDIF Rule: [EPSILON] 16
+Variable: ExprTail Terminal: GREATER Rule: [EPSILON] 16
+Variable: ExprTail Terminal: GREATER_EQUAL Rule: [EPSILON] 16
+Variable: ExprTail Terminal: EQUAL Rule: [EPSILON] 16
+Variable: ExprTail Terminal: TO Rule: [EPSILON] 16
+Variable: ExprTail Terminal: DO Rule: [EPSILON] 16
+Variable: ExprTail Terminal: PLUS Rule: [AddSous, ProdEx, ExprTail] 15
+Variable: ExprTail Terminal: ELSE Rule: [EPSILON] 16
+Variable: ExprTail Terminal: DIFFERENT Rule: [EPSILON] 16
+Variable: ExprTail Terminal: END Rule: [EPSILON] 16
+Variable: ExprTail Terminal: BY Rule: [EPSILON] 16
+Variable: ProdAtom Terminal: NUMBER Rule: [NUMBER] 23
+Variable: ProdAtom Terminal: LEFT_PARENTHESIS Rule: [LEFT_PARENTHESIS, ExprArith, RIGHT_PARENTHESIS] 20
+Variable: ProdAtom Terminal: MINUS Rule: [MINUS, ProdAtom] 21
+Variable: ProdAtom Terminal: VARNAME Rule: [VARNAME] 22
+Variable: Ints Terminal: ENDWHILE Rule: [EPSILON] 6
+Variable: Ints Terminal: SEMICOLON Rule: [SEMICOLON, InstList] 5
+Variable: Ints Terminal: ELSE Rule: [EPSILON] 6
+Variable: Ints Terminal: ENDIF Rule: [EPSILON] 6
+Variable: Ints Terminal: END Rule: [EPSILON] 6

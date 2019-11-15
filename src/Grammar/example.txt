@@ -1,0 +1,98 @@
+1 3 4 12 48 5 4 12 48 5 4 9 45 31 34 38 14 17 22 19 16 44 14 17 23 19 16 36 33 3 4 7 13 14 17 22 19 16 5 4 9 45 31 34 38 14 17 22 19 16 40 14 17 22 19 16 36 33 3 4 7 13 14 17 22 19 15 25 17 22 19 16 6 5 4 7 13 14 17 22 19 16 5 4 7 13 14 17 22 19 16 6 5 4 11 47 6 
+Rule [1]: Program --> BEG Code END 
+Rule [3]: Code --> InstList 
+Rule [4]: InstList --> Instruction Ints 
+Rule [12]: Instruction --> Read 
+Rule [48]: Read --> READ LEFT_PARENTHESIS VARNAME RIGHT_PARENTHESIS 
+Rule [5]: Ints --> SEMICOLON InstList 
+Rule [4]: InstList --> Instruction Ints 
+Rule [12]: Instruction --> Read 
+Rule [48]: Read --> READ LEFT_PARENTHESIS VARNAME RIGHT_PARENTHESIS 
+Rule [5]: Ints --> SEMICOLON InstList 
+Rule [4]: InstList --> Instruction Ints 
+Rule [9]: Instruction --> While 
+Rule [45]: While --> WHILE Cond DO Code ENDWHILE 
+Rule [31]: Cond --> AndExp OrExp 
+Rule [34]: AndExp --> Condis CondTail 
+Rule [38]: Condis --> ExprArith Comp ExprArith 
+Rule [14]: ExprArith --> ProdEx ExprTail 
+Rule [17]: ProdEx --> ProdAtom ProdTail 
+Rule [22]: ProdAtom --> VARNAME 
+Rule [19]: ProdTail --> EPSILON 
+Rule [16]: ExprTail --> EPSILON 
+Rule [44]: Comp --> DIFFERENT 
+Rule [14]: ExprArith --> ProdEx ExprTail 
+Rule [17]: ProdEx --> ProdAtom ProdTail 
+Rule [23]: ProdAtom --> NUMBER 
+Rule [19]: ProdTail --> EPSILON 
+Rule [16]: ExprTail --> EPSILON 
+Rule [36]: CondTail --> EPSILON 
+Rule [33]: OrExp --> EPSILON 
+Rule [3]: Code --> InstList 
+Rule [4]: InstList --> Instruction Ints 
+Rule [7]: Instruction --> Assign 
+Rule [13]: Assign --> VARNAME ASSIGN ExprArith 
+Rule [14]: ExprArith --> ProdEx ExprTail 
+Rule [17]: ProdEx --> ProdAtom ProdTail 
+Rule [22]: ProdAtom --> VARNAME 
+Rule [19]: ProdTail --> EPSILON 
+Rule [16]: ExprTail --> EPSILON 
+Rule [5]: Ints --> SEMICOLON InstList 
+Rule [4]: InstList --> Instruction Ints 
+Rule [9]: Instruction --> While 
+Rule [45]: While --> WHILE Cond DO Code ENDWHILE 
+Rule [31]: Cond --> AndExp OrExp 
+Rule [34]: AndExp --> Condis CondTail 
+Rule [38]: Condis --> ExprArith Comp ExprArith 
+Rule [14]: ExprArith --> ProdEx ExprTail 
+Rule [17]: ProdEx --> ProdAtom ProdTail 
+Rule [22]: ProdAtom --> VARNAME 
+Rule [19]: ProdTail --> EPSILON 
+Rule [16]: ExprTail --> EPSILON 
+Rule [40]: Comp --> GREATER_EQUAL 
+Rule [14]: ExprArith --> ProdEx ExprTail 
+Rule [17]: ProdEx --> ProdAtom ProdTail 
+Rule [22]: ProdAtom --> VARNAME 
+Rule [19]: ProdTail --> EPSILON 
+Rule [16]: ExprTail --> EPSILON 
+Rule [36]: CondTail --> EPSILON 
+Rule [33]: OrExp --> EPSILON 
+Rule [3]: Code --> InstList 
+Rule [4]: InstList --> Instruction Ints 
+Rule [7]: Instruction --> Assign 
+Rule [13]: Assign --> VARNAME ASSIGN ExprArith 
+Rule [14]: ExprArith --> ProdEx ExprTail 
+Rule [17]: ProdEx --> ProdAtom ProdTail 
+Rule [22]: ProdAtom --> VARNAME 
+Rule [19]: ProdTail --> EPSILON 
+Rule [15]: ExprTail --> AddSous ProdEx ExprTail 
+Rule [25]: AddSous --> MINUS 
+Rule [17]: ProdEx --> ProdAtom ProdTail 
+Rule [22]: ProdAtom --> VARNAME 
+Rule [19]: ProdTail --> EPSILON 
+Rule [16]: ExprTail --> EPSILON 
+Rule [6]: Ints --> EPSILON 
+Rule [5]: Ints --> SEMICOLON InstList 
+Rule [4]: InstList --> Instruction Ints 
+Rule [7]: Instruction --> Assign 
+Rule [13]: Assign --> VARNAME ASSIGN ExprArith 
+Rule [14]: ExprArith --> ProdEx ExprTail 
+Rule [17]: ProdEx --> ProdAtom ProdTail 
+Rule [22]: ProdAtom --> VARNAME 
+Rule [19]: ProdTail --> EPSILON 
+Rule [16]: ExprTail --> EPSILON 
+Rule [5]: Ints --> SEMICOLON InstList 
+Rule [4]: InstList --> Instruction Ints 
+Rule [7]: Instruction --> Assign 
+Rule [13]: Assign --> VARNAME ASSIGN ExprArith 
+Rule [14]: ExprArith --> ProdEx ExprTail 
+Rule [17]: ProdEx --> ProdAtom ProdTail 
+Rule [22]: ProdAtom --> VARNAME 
+Rule [19]: ProdTail --> EPSILON 
+Rule [16]: ExprTail --> EPSILON 
+Rule [6]: Ints --> EPSILON 
+Rule [5]: Ints --> SEMICOLON InstList 
+Rule [4]: InstList --> Instruction Ints 
+Rule [11]: Instruction --> Print 
+Rule [47]: Print --> PRINT LEFT_PARENTHESIS VARNAME RIGHT_PARENTHESIS 
+Rule [6]: Ints --> EPSILON 

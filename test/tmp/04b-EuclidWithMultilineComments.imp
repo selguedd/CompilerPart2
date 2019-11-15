@@ -1,0 +1,17 @@
+begin
+  co A multiline
+  co However useless
+  co Comment
+  co
+  read(a) ; 
+  read(b) ;
+  while b <> 0 do
+    c := b ;
+    while a >= b do
+      a := a-b
+    done ;
+    b := a ;
+    a := c
+  done ;
+  print(a)
+end

@@ -1,0 +1,10 @@
+token: VARIABLES	lexical unit: VARNAME
+token: not	lexical unit: NOT
+token: in	lexical unit: VARNAME
+token: lexicographic	lexical unit: VARNAME
+token: order	lexical unit: VARNAME
+Identifiers
+VARIABLES	1
+in	1
+lexicographic	1
+order	1

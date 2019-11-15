@@ -1,0 +1,7 @@
+begin
+read(b);
+read(a);
+read(c);
+read(cA);
+read(aC);
+end

@@ -1,0 +1,5 @@
+token: -	lexical unit: MINUS
+token: +	lexical unit: PLUS
+token: *	lexical unit: TIMES
+token: /	lexical unit: DIVIDE
+Identifiers

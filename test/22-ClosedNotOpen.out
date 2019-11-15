@@ -1,0 +1,4 @@
+Exception in thread "main" java.util.regex.PatternSyntaxException: A comment is never closed. near index 1
+
+	at LexicalAnalyzer.nextToken(LexicalAnalyzer.java:670)
+	at Main.main(Main.java:30)

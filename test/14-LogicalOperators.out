@@ -1,0 +1,4 @@
+token: not	lexical unit: NOT
+token: and	lexical unit: AND
+token: or	lexical unit: OR
+Identifiers

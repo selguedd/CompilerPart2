@@ -1,0 +1,4 @@
+token: while	lexical unit: WHILE
+token: do	lexical unit: DO
+token: endwhile	lexical unit: ENDWHILE
+Identifiers

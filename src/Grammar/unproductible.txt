@@ -1,0 +1,16 @@
+0
+[ProdTail, ProdDiv, OrExp, AddSous, Comp, Read, IfTail, Code, Print, CondTail, ExprTail, ProdAtom, Ints]
+1
+[ProdTail, Instruction, Program, ProdDiv, OrExp, AddSous, Comp, Read, IfTail, Code, Print, CondTail, ProdEx, ExprTail, ProdAtom, Ints]
+2
+[ProdTail, Instruction, Program, ProdDiv, OrExp, AddSous, Comp, InstList, Read, IfTail, Code, ExprArith, Print, CondTail, ProdEx, ExprTail, ProdAtom, Ints]
+3
+[Condis, ProdTail, Instruction, Program, ProdDiv, OrExp, AddSous, Comp, InstList, Assign, Read, IfTail, Code, ExprArith, Print, CondTail, ProdEx, ExprTail, ProdAtom, Ints, For]
+4
+[Condis, ProdTail, Instruction, Program, ProdDiv, OrExp, AddSous, Comp, InstList, Assign, Read, IfTail, Code, ExprArith, Print, CondTail, ProdEx, ExprTail, ProdAtom, AndExp, Ints, For]
+5
+[Condis, ProdTail, Instruction, Program, ProdDiv, OrExp, AddSous, Comp, InstList, Assign, Read, IfTail, Code, ExprArith, Print, CondTail, ProdEx, ExprTail, ProdAtom, AndExp, Ints, For, Cond]
+6
+[Condis, Instruction, AddSous, Comp, InstList, Read, Code, ExprArith, While, If, AndExp, For, Cond, ProdTail, Program, ProdDiv, OrExp, Assign, IfTail, Print, CondTail, ProdEx, ExprTail, ProdAtom, Ints]
+7
+[Condis, Instruction, AddSous, Comp, InstList, Read, Code, ExprArith, While, If, AndExp, For, Cond, ProdTail, Program, ProdDiv, OrExp, Assign, IfTail, Print, CondTail, ProdEx, ExprTail, ProdAtom, Ints]

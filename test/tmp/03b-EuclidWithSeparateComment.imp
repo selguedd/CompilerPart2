@@ -1,0 +1,13 @@
+begin
+  read(a) ; CO A comment CO
+  read(b) ; CO Another comment CO
+  while b <> 0 do
+    c := b ;
+    while a >= b do
+      a := a-b
+    done ;
+    b := a ;
+    a := c
+  done ;
+  print(a)
+end

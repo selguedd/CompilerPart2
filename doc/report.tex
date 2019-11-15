@@ -1,0 +1,270 @@
+\documentclass[a4paper]{article}
+
+\usepackage{amsmath}
+\usepackage{fancyvrb}
+\usepackage{xspace}
+\usepackage{pdfpages}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!50!black}
+}
+
+\newcommand{\fort}{{\sc Algol-${0}$}\xspace}
+\newcommand{\mylanguage}{{\sc Algol-${0}$}\xspace}
+\newcommand{\JFlex}{\texttt{JFlex}\xspace}
+\newcommand{\atm}{\mathcal{A}}
+\newcommand{\Lnc}{L_{nc}}
+\newcommand{\bigO}{\mathcal{O}}
+\title{\mylanguage\\Introduction to language theory and compiling\\
+  Project -- Part 1}
+
+\author{Gilles \textsc{Geeraerts}\and Rapha\"el \textsc{Berthon} \and
+  Sarah \textsc{Winter}}
+
+\begin{document}
+
+\VerbatimFootnotes
+
+\maketitle
+
+
+\begin{abstract}
+This report gives an overview of the typical mistakes that were made, and explains the different choices you had for the implementation. It also aims to show you what a typical report should look like in terms of structure and how to explain your choices. Obviously, you are not supposed to give a list of potential mistakes in your report.
+\end{abstract}
+
+\section{Introduction}
+
+The \mylanguage language is a simple imperative language which provides basic constructors: variable names, instructions to read and print them, \texttt{for} and \texttt{while} loops and conditionals. This first part of the project consisted in implementing a lexical analyzer for \mylanguage using the \href{http://jflex.de/}{\JFlex} tool.
+
+\section{Regular expressions and tokens}
+
+The keywords of \mylanguage and their associated tokens are depicted in Figure~\ref{fig:tokens}. The complex regexs are detailed in Figure~\ref{fig:regexs}.
+
+\begin{figure}[ht]
+  \centering
+\begin{tabular}{|c|c|}
+  \hline
+  Regular expression        & Token     \\
+  \hline
+  \hline
+  \texttt{begin}        & BEG \\
+  \hline
+  \texttt{end}          & END   \\
+  \hline
+  \texttt{:=}               & ASSIGN    \\
+  \hline
+  \texttt{(}                & LEFT\_PARENTHESIS    \\
+  \hline
+  \texttt{)}                & RIGHT\_PARENTHESIS    \\
+  \hline
+  \texttt{-}                & MINUS     \\
+  \hline
+  \texttt{+}                & PLUS      \\
+  \hline
+  \texttt{*}                & TIMES     \\
+  \hline
+  \texttt{/}                & DIVIDE    \\
+  \hline
+  \texttt{if}               & IF        \\
+  \hline
+  \texttt{then}             & THEN      \\
+  \hline
+  \texttt{endif}            & ENDIF     \\
+  \hline
+  \texttt{else}             & ELSE      \\
+  \hline
+  \texttt{not}              & NOT       \\
+  \hline
+  \texttt{and}              & AND       \\
+  \hline
+  \texttt{or}               & OR        \\
+%  \hline
+%\end{tabular}
+%\begin{tabular}{|c|c|}
+%  \hline
+%  Regular expression        & Token     \\
+%  \hline
+  \hline
+  \texttt{=}                & EQUAL        \\
+  \hline
+  \texttt{>=}               & GREATER\_EQUAL       \\
+  \hline
+  \texttt{>}                & GREATER        \\
+  \hline
+  \texttt{<=}               & SMALLER\_EQUAL       \\
+  \hline
+  \texttt{<}                & SMALLER        \\
+  \hline
+  \texttt{/=}               & DIFFERENT       \\
+  \hline
+  \texttt{while}            & WHILE     \\
+  \hline
+  \texttt{do}               & DO        \\
+  \hline
+  \texttt{endwhile}         & ENDWHILE  \\
+  \hline
+  \texttt{for}              & FOR       \\
+  \hline
+  \texttt{from}             & FROM        \\
+  \hline
+  \texttt{to}               & TO        \\
+  \hline
+  \texttt{by}               & BY        \\
+  \hline
+  \texttt{print}            & PRINT     \\
+  \hline
+  \texttt{read}             & READ      \\
+  \hline
+  \texttt{;}                & SEMICOLON        \\
+  \hline
+  \texttt{\{Varname\}}      & VARNAME   \\
+  \hline
+  \texttt{\{Integer\}}      & NUMBER    \\
+  \hline
+\end{tabular}
+\caption{The regular expressions and their corresponding tokens.}
+\label{fig:tokens}
+\end{figure}
+
+An additional token, EOS, was added, to mark the end of the input. The easiest way to handle it was to return it when reading \texttt{EOF}, either by adding a corresponding \JFlex rule (you have to be careful however, because \JFlex handles \texttt{EOF} specially), or by adding a return instruction enclosed between the \texttt{\%eofval\{} and \texttt{\%eofval\}} delimiters.
+
+\begin{figure}[ht]
+  \centering
+$\begin{array}{lcl}
+\mathtt{AlphaUpperCase} & = & \mathtt{[A-Z]} \\
+\mathtt{AlphaLowerCase} & = & \mathtt{[a-z]} \\
+\mathtt{Alpha}          & = & \mathtt{\{AlphaUpperCase\}|\{AlphaLowerCase\}} \\
+\mathtt{Numeric}        & = & \mathtt{[0-9]} \\
+\mathtt{AlphaNumeric}   & = & \mathtt{\{Alpha\}|\{Numeric\}} \\
+\mathtt{Integer}        & = & \mathtt{[0-9]+} \\
+\mathtt{Identifier}        & = & \mathtt{({Alpha})({AlphaNumeric}*)} \\
+\mathtt{LineFeed}       & = & \mathtt{"\backslash n"} \\
+\mathtt{CarriageReturn} & = & \mathtt{"\backslash r"} \\
+\mathtt{EndOfLine}        & = & \mathtt{({LineFeed}{CarriageReturn}?) | ({CarriageReturn}{LineFeed}?)} \\
+\mathtt{Space}          & = & \mathtt{(\backslash t | \backslash f | "\ ")} \\
+\mathtt{Separator}         & = & \mathtt{({Space}) | ({EndOfLine})} \\
+\mathtt{Any}         & = & \mathtt{([\ \hat{}\ "\backslash n""\backslash r"])*} \\
+\mathtt{UpToEnd}         & = & \mathtt{({Space}{Any}{EndOfLine}) | ({EndOfLine})}
+\end{array}$
+\caption{Definition of the complex regular expressions.}
+\label{fig:regexs}
+\end{figure}
+
+Note that characters intervals can be tricky, since they rely on the assumption that characters encoding standards were built in a logical way, \emph{e.g.} that the letters of the alphabet were put contiguously in the mapping. Fortunately, this is the case for the most frequently used encoding standards; for example, letters from $a$ to $z$ correspond to numbers $97$ to $122$ in ASCII. Note however that, since upper case letters from $A$ to $Z$ occupy numbers from $65$ to $90$, you cannot write $\mathtt{a-Z}$ to represent $\{a, \dots, z, A, \dots, Z\}$, since there will also be $[$ and other characters (from $91$ to $96$) in the corresponding set.
+
+\subsection{Numbers}
+
+\paragraph{Negative integers}
+
+It is written in the project statement that negative integers should be handled using rule 16 of the \mylanguage grammar. For example, \texttt{-5} should be lexed as:
+ 
+\begin{verbatim}
+token: -	lexical unit: MINUS
+token: 5	lexical unit: NUMBER
+\end{verbatim}
+
+It will later be parsed as an arithmetic expression. Otherwise, when you tokenize \texttt{1-5}, there is an ambiguity: it can either be
+
+\begin{verbatim}
+token: 1	lexical unit: NUMBER
+token: -	lexical unit: MINUS
+token: 5	lexical unit: NUMBER
+\end{verbatim}
+
+or
+
+\begin{verbatim}
+token: 1	lexical unit: NUMBER
+token: -5	lexical unit: NUMBER
+\end{verbatim}
+
+In the latter case, the expression \emph{cannot be parsed} by the \mylanguage grammar. This is why it is best to solve the ambiguity at lexing time.
+
+\paragraph{Real numbers}
+Decimal, exponent and in general real numbers are not supposed to be handled by \mylanguage, since it adds unnecessary complexity. If you want to handle them, state it explicitly in your report.
+
+\subsection{Identifiers}
+\paragraph{VarName} A variable identifier is a string of digits and letters, starting with a letter. Here, no special difficulty arose, except that non-ASCII identifiers should be rejected. The best solution was to raise an error.
+
+
+\section{Comments}
+
+\paragraph{Variables with CO or co}
+It was not specified if \verb#COBOL# or \verb#comment# should be variables or the start of a comment. The decision was up to you, but you had to make it clear in your report. As it was specified that variables where all sequences of alphanumeric symbols beginning with a letter, \verb#co# and \verb#CO# symbols are expected to be followed by a separator (space or linebreak) to begin or end a comment. In general, it was expected to always have a separator between two keywords, except if you explicitly told otherwise in your report. In this case, and again except if you didn't state otherwise, you should be consistent, and \verb#outcome# should be the variable out followed by a comment.
+
+
+\paragraph{Successive comments}
+Comments were the most difficult aspect of this part of the project, since it required you to be a bit careful. Indeed, the naive definition of a regex matching comments does not work: \verb#Comment = CO.*CO# will match for example \verb#CO A comment CO read(b) CO Another comment CO# only as a comment, whereas the instruction \verb#read(b)# should be tokenized. The reason is that \JFlex will always match the longest string matching the regex, and the expression above indeed starts by \texttt{CO} and ends with \texttt{CO} with any characters in between (in particular, \texttt{/} and \texttt{*} are matched by \texttt{.}).
+
+An immediate solution would consist in defining \verb#Comment = CO[^CO]*CO#. However, the \verb#[^CO]# will exclude \texttt{C} and \texttt{O} but this is not exactly what we want since we need to exclude only the string \texttt{CO} (otherwise, a comment such as \verb#CO A O comment CO# will be rejected since it contains a \texttt{O} in the middle). Thus, the solution is to exclude the string \texttt{"CO"} (and not the characters separately): \verb#Comment = CO[^"CO"]*CO#.
+
+However, such solution induces a relatively complex regex, so it is more natural to use the states facility provided by \JFlex: when reading \texttt{CO}, the lexer jumps to the \texttt{<COMMENTS>} exclusive state, and then ignores its input until it reads an end of comment marker \texttt{CO}.
+
+\paragraph{Special characters in comments}
+The naive regex \verb#Comment = CO.*CO# is still not quite right. Indeed, the dot \texttt{.} symbol does not represent any symbol: some special characters (\emph{e.g.} non-ASCII ones), as well as newlines, are not matched. Thus, to ignore any character, the expression \verb#[^]# representing the complement of the empty set (\emph{i.e.} the set of all characters) is more suitable. The regex \verb#= CO[^"CO"]*CO# consequently does not have this flaw. Such problem also arose when using states: here again, \verb#[^]# should have been preferred over dot ``\texttt{.}''. Depending on your implementation, it also happened that your lexer printed the ``\texttt{C}'' and ``\texttt{O}'' to \texttt{stdout} when they were found inside a comment.
+
+It was also valid to state in your report that you assumed comments did not contain any special character.
+
+\paragraph{Multiline comments}
+However, even under this hypothesis, you should still be careful about multiline comments, \emph{e.g.}
+\begin{verbatim}
+CO
+   A useless
+   but multiline
+   comment
+ CO
+\end{verbatim}
+Indeed, since \texttt{.} does not cover linebreaks, such comment is still not matched. Here, assuming comments are always written on a single line would have been valid for evaluation purposes, but it would have sounded a bit like an artificial restriction: in everyday languages, comments enclosed between \texttt{CO} and \texttt{CO} are precisely the ones which does not fit in one line. Thus, the best way of doing it would have been to chose a regex which also matches linebreaks.
+
+
+\paragraph{Mismatched comments}
+
+It can happen that comments are not well-formed, \emph{e.g.}
+\begin{verbatim}
+CO A never closed comment
+\end{verbatim}
+Since comments are not sent to the parser, it is the lexer's job to handle these syntax errors. Your program should raise an exception when a comment is never closed.
+
+\paragraph{Nested comments}
+Nested comments are not part of \mylanguage syntax. However, you were asked as a bonus question to suggest what would happen if you tried to handle them.
+
+First, it is important to note that the language of nested comments is not regular. But in this particular case, another problem lies in the fact that the opening and closing symbol are the same.
+This means that there is no easy way to differentiate the following codes:
+
+\begin{verbatim}
+CO First comment CO read(a) CO Second comment CO
+\end{verbatim}
+
+
+\begin{verbatim}
+CO Beginning of comment CO Nested comment  CO End of comment CO
+\end{verbatim}
+
+From there, a possible correct conclusion was that nested comments have no meaning in this situation. Another way to look at it would be that the compiler should choose what part of the code are nested comments or not, such that the compilation is successful. In this second interpretation, the compiler should try to compile all possible combinations of nested comments up to success, but this would break the asumption that a compiler is fast. In both cases, the conclusion is that it is not reasonable to handle nested comments with this syntax. Thus if a language wants to handle nested comments, it should have different begin and end of comments symbols.
+
+
+\section{Implementation}
+
+\subsection{Order of the regular expressions}
+
+As stated before, in the \texttt{.flex} file, the order of regular expressions matter. Indeed, when \JFlex matches an expression, it does it greedily, which means it tries to match the longest possible expression\footnote{Remember that is why the naive regex for comments does not work.}; and, in case of ambiguity (\emph{e.g.} \texttt{10} can be matched both as \texttt{WFIntegers} and as \texttt{AllIntegers}), it chooses the first regex appearing in the file. That is why \texttt{ProgName} and expressions matching any non-matched characters should be put at the end.
+
+\subsection{Data structures}
+
+\paragraph{List} \texttt{ArrayLists} were the easiest way to store the variable identifiers. However, it is then costly to look for a variable identifier to check that it was not already there: $\bigO(n)$ where $n$ is the size of the \texttt{ArrayList}. A solution could be to keep the list stored, but then insertion (without checking that it is aleady there) is not $\bigO(1)$ and more complex data structures handle it natively. Also, it was unnecessary to have a list of type \texttt{Symbol} to store the identifiers, since the only information needed was the identifier and the corresponding line number. The \texttt{column} and \texttt{value} were thus superfluous.
+\paragraph{HashMap} \texttt{HashMaps} provides the best complexity, since it handles find and insertion in $\bigO(1)$. You could thus store identifiers and corresponding line numbers in a \texttt{<String,Integer>HashMap}. However, you would then have to do the lexicographical sorting at the end (some of you thus forgot to do it).
+\paragraph{TreeMap} \texttt{TreeMaps} were the most elegant solution, since they natively handle lexicographical sorting (this is the way data is internally stored, using a tree). They provide reasonable complexity for find and insertion: $\bigO(\ln(n))$.
+
+\subsection{Javadoc}
+
+You were asked to provide a Javadoc. Indeed, it is a good habit to document your code, even if here the code is small so it might have seemed superfluous. But now, your Javadoc is ready to be extended for the second part of the project.
+
+\section{Conclusion}
+
+The difficulties were hidden in the handling of the comments. Indeed, matching the keywords did not give rise to many problems. Other errors mainly came from a misreading of the statement (\emph{e.g.} not printing the variables in lexicographical order, tokenizing negative numbers or reals).
+
+\end{document}
