@@ -3,10 +3,10 @@ public class Symbol {
 	public static final Object NO_VALUE = null;
 
 	private final LexicalUnit type;
-	private final Object value;
+	private final String value;
 	private final int line, column;
 
-	public Symbol(LexicalUnit unit, int line, int column, Object value) {
+	public Symbol(LexicalUnit unit, int line, int column, String value) {
 		this.type = unit;
 		this.line = line + 1;
 		this.column = column;
@@ -14,18 +14,18 @@ public class Symbol {
 	}
 
 	public Symbol(LexicalUnit unit, int line, int column) {
-		this(unit, line, column, NO_VALUE);
+		this(unit, line, column, null);
 	}
 
 	public Symbol(LexicalUnit unit, int line) {
-		this(unit, line, UNDEFINED_POSITION, NO_VALUE);
+		this(unit, line, UNDEFINED_POSITION, null);
 	}
 
 	public Symbol(LexicalUnit unit) {
-		this(unit, UNDEFINED_POSITION, UNDEFINED_POSITION, NO_VALUE);
+		this(unit, UNDEFINED_POSITION, UNDEFINED_POSITION, null);
 	}
 
-	public Symbol(LexicalUnit unit, Object value) {
+	public Symbol(LexicalUnit unit, String value) {
 		this(unit, UNDEFINED_POSITION, UNDEFINED_POSITION, value);
 	}
 
@@ -41,7 +41,7 @@ public class Symbol {
 		return this.type;
 	}
 
-	public Object getValue() {
+	public String getValue() {
 		return this.value;
 	}
 

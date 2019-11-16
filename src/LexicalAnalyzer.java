@@ -686,7 +686,7 @@ class LexicalAnalyzer {
             }
           case 40: break;
           case 3: 
-            { return new Symbol(LexicalUnit.NUMBER,yyline, yycolumn,new Integer(yytext()));
+            { return new Symbol(LexicalUnit.NUMBER,yyline, yycolumn,yytext());
             }
           case 41: break;
           case 4: 
