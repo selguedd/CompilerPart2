@@ -43,15 +43,19 @@ public class Parser {
 
     }
 
+
     public ParseTree program() throws IOException, ParseException{
         // Program is the initial symbol of the grammar
         // <Program> -->  BEG <Code> END
         rules.add(1);
-        ParseTree parseTree = new ParseTree(new Symbol(LexicalUnit.BEG), Arrays.asList(this.match(LexicalUnit.BEG), this.code(),this.match(LexicalUnit.END)));
+
+        ParseTree parseTree = new ParseTree(new Symbol(NotTerminal.Program), Arrays.asList(new ParseTree[]{this.match(LexicalUnit.BEG),this.code(),this.match(LexicalUnit.END)}));
         return parseTree;
     }
 
-    public void code() throws IOException, ParseException{
+    public ParseTree code() throws IOException, ParseException{
+     //<Code> --> EPSILON
+     //<Code> --> <InstList>
       switch(current.getType()){
           case IF:
           case VARNAME:
@@ -60,14 +64,14 @@ public class Parser {
           case READ:
           case FOR:
               rules.add(3);
-              instList();
-              break;
+              ParseTree parseTree = new ParseTree(new Symbol(NotTerminal.Code), Arrays.asList(new ParseTree[]{this.instList()}));
+              return parseTree;
           case END:
           case ENDWHILE:
           case ENDIF:
           case ELSE:
               rules.add(2);
-              break;
+              return new ParseTree(new Symbol(NotTerminal.Code), Arrays.asList(new ParseTree[]{new ParseTree(new Symbol(LexicalUnit.EPSILON))}));
           default:
               throw new ParseException(current.getValue(),-1);
       }
@@ -79,7 +83,7 @@ public class Parser {
         inst();
     }
 
-    public void instList() throws ParseException, IOException {
+    public ParseTree instList() throws ParseException, IOException {
      switch (current.getType()){
          case IF:
          case VARNAME:
@@ -88,14 +92,14 @@ public class Parser {
          case READ:
          case FOR:
              rules.add(4);
-             rule4();
-             break;
+             ParseTree parseTree = new ParseTree(new Symbol(NotTerminal.InstList), Arrays.asList(new ParseTree[]{this.instruction(),this.inst()}));
+             return parseTree;
          default:
              throw new ParseException(current.getValue(),-1);
      }
     }
 
-    private void inst() throws ParseException, IOException {
+    private ParseTree inst() throws ParseException, IOException {
 
         switch(current.getType()){
             case END:
@@ -103,94 +107,87 @@ public class Parser {
             case ENDIF:
             case ELSE:
                 rules.add(6);
-                break;
+                return new ParseTree(new Symbol(NotTerminal.Inst), Arrays.asList(new ParseTree[]{new ParseTree(new Symbol(LexicalUnit.EPSILON))}));
             case SEMICOLON:
                 rules.add(5);
-                match(LexicalUnit.SEMICOLON);
-                instList();
-                break;
+                ParseTree parseTree = new ParseTree(new Symbol(NotTerminal.Inst), Arrays.asList(new ParseTree[]{this.match(LexicalUnit.SEMICOLON),this.instList()}));
+                return parseTree;
             default:
                 throw new ParseException(current.getValue(),-1);
         }
     }
 
-    public void instruction() throws ParseException, IOException {
+    public ParseTree instruction() throws ParseException, IOException {
         switch (current.getType()){
             case IF:
                 rules.add(8);
-                ifP();
-                break;
+                return new ParseTree(new Symbol(NotTerminal.Instruction), Arrays.asList(new ParseTree[]{this.ifP()}));
             case VARNAME:
                 rules.add(7);
-                assign();
-                break;
+                return new ParseTree(new Symbol(NotTerminal.Instruction), Arrays.asList(new ParseTree[]{this.assign()}));
             case WHILE:
                 rules.add(9);
-                whileP();
-                break;
+                return new ParseTree(new Symbol(NotTerminal.Instruction), Arrays.asList(new ParseTree[]{this.whileP()}));
             case PRINT:
                 rules.add(11);
-                printP();
-                break;
+                return new ParseTree(new Symbol(NotTerminal.Instruction), Arrays.asList(new ParseTree[]{this.printP()}));
             case READ:
                 rules.add(12);
-                read();
-                break;
+                return new ParseTree(new Symbol(NotTerminal.Instruction), Arrays.asList(new ParseTree[]{this.read()}));
             case FOR:
                 rules.add(10);
-                forP();
-                break;
+                return new ParseTree(new Symbol(NotTerminal.Instruction), Arrays.asList(new ParseTree[]{this.forP()}));
             default:
                 throw new ParseException(current.getValue(),-1);
         }
     }
 
-    private void forP() throws ParseException, IOException{
+    private ParseTree forP() throws ParseException, IOException{
      rules.add(46);
-     match(LexicalUnit.FOR);
-     match(LexicalUnit.VARNAME);
-     match(LexicalUnit.FROM);
-     expArith();
-     match(LexicalUnit.BY);
-     expArith();
-     match(LexicalUnit.TO);
-     expArith();
-     match(LexicalUnit.DO);
-     code();
-     match(LexicalUnit.ENDWHILE);
+     return new ParseTree(new Symbol(NotTerminal.For), Arrays.asList(new ParseTree[]{this.match(LexicalUnit.FOR),
+             this.match(LexicalUnit.VARNAME),
+            this.match(LexicalUnit.FROM),
+            this.expArith(),
+        this.match(LexicalUnit.BY),
+        this.expArith(),
+        this.match(LexicalUnit.TO),
+        this.expArith(),
+        this.match(LexicalUnit.DO),
+        this.code(),
+        this.match(LexicalUnit.ENDWHILE)}));
 
     }
 
-    private void read() throws ParseException, IOException {
+    private ParseTree read() throws ParseException, IOException {
      rules.add(48);
-     match(LexicalUnit.READ);
-     match(LexicalUnit.LEFT_PARENTHESIS);
-     match(LexicalUnit.VARNAME);
-     match(LexicalUnit.RIGHT_PARENTHESIS);
+     return new ParseTree(new Symbol(NotTerminal.Read), Arrays.asList(new ParseTree[]{this.match(LexicalUnit.READ),
+        this.match(LexicalUnit.LEFT_PARENTHESIS),
+        this.match(LexicalUnit.VARNAME),
+        this.match(LexicalUnit.RIGHT_PARENTHESIS)}));
     }
 
-    private void printP()throws ParseException, IOException {
+    private ParseTree printP()throws ParseException, IOException {
      rules.add(47);
-     match(LexicalUnit.PRINT);
-     match(LexicalUnit.LEFT_PARENTHESIS);
-     match(LexicalUnit.VARNAME);
-     match(LexicalUnit.RIGHT_PARENTHESIS);
+     return new ParseTree(new Symbol(NotTerminal.Print), Arrays.asList(new ParseTree[]{this.match(LexicalUnit.PRINT),
+        this.match(LexicalUnit.LEFT_PARENTHESIS),
+        this.match(LexicalUnit.VARNAME),
+        this.match(LexicalUnit.RIGHT_PARENTHESIS)}));
     }
 
-    private void whileP() throws ParseException, IOException {
+    private ParseTree whileP() throws ParseException, IOException {
      rules.add(45);
-     match(LexicalUnit.WHILE);
-     cond();
-     match(LexicalUnit.DO);
-     code();
-     match(LexicalUnit.ENDWHILE);
+     return new ParseTree(new Symbol(NotTerminal.While), Arrays.asList(new ParseTree[]{this.match(LexicalUnit.WHILE),
+        this.cond(),
+        this.match(LexicalUnit.DO),
+        this.code(),
+        this.match(LexicalUnit.ENDWHILE)}));
     }
 
-    private void assign() throws ParseException, IOException {
+    private ParseTree assign() throws ParseException, IOException {
      rules.add(13);
-     match(LexicalUnit.VARNAME);
-     match(LexicalUnit.ASSIGN);
-     expArith();
+     return new ParseTree(new Symbol(NotTerminal.Assign), Arrays.asList(new ParseTree[]{this.match(LexicalUnit.VARNAME),
+        this.match(LexicalUnit.ASSIGN),
+        this.expArith()}));
     }
 
     public void ifP() throws ParseException, IOException {

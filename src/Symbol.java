@@ -5,13 +5,23 @@ public class Symbol {
 	private final LexicalUnit type;
 	private final String value;
 	private final int line, column;
+	private  NotTerminal variable;
 
 	public Symbol(LexicalUnit unit, int line, int column, String value) {
 		this.type = unit;
 		this.line = line + 1;
 		this.column = column;
 		this.value = value;
+        this.variable = null;
 	}
+
+    public Symbol(NotTerminal variable){
+	    this.type = null;
+	    this .value = null;
+	    this.line = UNDEFINED_POSITION;
+	    this.column = UNDEFINED_POSITION;
+	    this.variable=variable;
+    }
 
 	public Symbol(LexicalUnit unit, int line, int column) {
 		this(unit, line, column, null);
@@ -52,6 +62,10 @@ public class Symbol {
 	public int getColumn() {
 		return this.column;
 	}
+
+	public NotTerminal getVariable() {
+	    return this.variable;
+    }
 
 	@Override
 	public int hashCode() {

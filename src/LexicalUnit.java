@@ -33,5 +33,6 @@ public enum LexicalUnit{
     TO,
     PRINT,
     READ,
-	END_OF_STREAM
+	END_OF_STREAM,
+    EPSILON
 }
