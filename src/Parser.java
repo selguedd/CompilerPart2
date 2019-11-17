@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Parser {
     private LexicalAnalyzer scanner;
@@ -23,7 +25,7 @@ public class Parser {
 
     }
 
-    private void match(LexicalUnit l) throws IOException, ParseException {
+    private ParseTree match(LexicalUnit l) throws IOException, ParseException {
         if(!current.getType().equals(l)){
             // There is a parsing error
             throw new ParseException(current.getValue(),-1);
@@ -31,21 +33,24 @@ public class Parser {
         else {
             Symbol cur = current;
             consume();
-
+            return new ParseTree(cur);
         }
     }
-    public void start() throws IOException, ParseException{
+
+    public ParseTree start() throws IOException, ParseException{
         // Program is the initial symbol of the Imp grammar
-        program();
+        return this.program();
 
     }
-    public void program() throws IOException, ParseException{
-        // Program is the initial symbol of the Imp grammar
+
+    public ParseTree program() throws IOException, ParseException{
+        // Program is the initial symbol of the grammar
+        // <Program> -->  BEG <Code> END
         rules.add(1);
-        match(LexicalUnit.BEG);
-        code();
-        match(LexicalUnit.END);
+        ParseTree parseTree = new ParseTree(new Symbol(LexicalUnit.BEG), Arrays.asList(this.match(LexicalUnit.BEG), this.code(),this.match(LexicalUnit.END)));
+        return parseTree;
     }
+
     public void code() throws IOException, ParseException{
       switch(current.getType()){
           case IF:
@@ -68,10 +73,12 @@ public class Parser {
       }
 
     }
+
     public void rule4()throws ParseException, IOException{
         instruction();
         inst();
     }
+
     public void instList() throws ParseException, IOException {
      switch (current.getType()){
          case IF:
