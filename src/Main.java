@@ -1,4 +1,6 @@
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.ParseException;
 
 public class Main{
@@ -13,12 +15,26 @@ public class Main{
         
         FileReader Source = new FileReader(args[0]);
         Parser parse = new Parser(Source);
+		ParseTree parseTree=null;
 		try {
-			parse.start();
+			parseTree=parse.start();
 		} catch (ParseException e) {
 
 		}
 		parse.printRules();
+		if (parseTree != null) {
+			String content =parseTree.toLaTeX();
+
+			try {
+
+				Files.write(Paths.get("filename.tex"), content.getBytes());
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+		}
+
 	}
 	public static void usage(){
 		System.out.println("java "+Main.class.getSimpleName()+" [file.il]");

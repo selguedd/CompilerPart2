@@ -3,6 +3,7 @@ public class Symbol {
 	public static final Object NO_VALUE = null;
 
 	private final LexicalUnit type;
+	private final NotTerminal types;
 	private final String value;
 	private final int line, column;
 	private  NotTerminal variable;
@@ -13,15 +14,17 @@ public class Symbol {
 		this.column = column;
 		this.value = value;
         this.variable = null;
+        this.types=null;
 	}
 
     public Symbol(NotTerminal variable){
-	    this.type = null;
+	    this.types = variable;
 	    this .value = null;
 	    this.line = UNDEFINED_POSITION;
 	    this.column = UNDEFINED_POSITION;
 	    this.variable=variable;
-    }
+		type = null;
+	}
 
 	public Symbol(LexicalUnit unit, int line, int column) {
 		this(unit, line, column, null);
@@ -77,11 +80,12 @@ public class Symbol {
 	@Override
 	public String toString() {
 		if (this.isTerminal()) {
-			final String value = this.value != null ? this.value.toString() : "null";
-			final String type = this.type != null ? this.type.toString() : "null";
-			return "token: " + value + "\tlexical unit: " + type;
+			return type.toString();
 		}
-		return "Non-terminal symbol";
+		else{
+			return types.toString();
+		}
+
 	}
 
 }

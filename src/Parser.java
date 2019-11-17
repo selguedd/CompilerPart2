@@ -144,34 +144,34 @@ public class Parser {
 
     private ParseTree forP() throws ParseException, IOException{
      rules.add(46);
-     return new ParseTree(new Symbol(NotTerminal.For), Arrays.asList(new ParseTree[]{this.match(LexicalUnit.FOR),
-             this.match(LexicalUnit.VARNAME),
-            this.match(LexicalUnit.FROM),
-            this.expArith(),
-        this.match(LexicalUnit.BY),
-        this.expArith(),
-        this.match(LexicalUnit.TO),
-        this.expArith(),
-        this.match(LexicalUnit.DO),
-        this.code(),
-        this.match(LexicalUnit.ENDWHILE)}));
+        return new ParseTree(new Symbol(NotTerminal.For), Arrays.asList(this.match(LexicalUnit.FOR),
+                this.match(LexicalUnit.VARNAME),
+                this.match(LexicalUnit.FROM),
+                this.expArith(),
+                this.match(LexicalUnit.BY),
+                this.expArith(),
+                this.match(LexicalUnit.TO),
+                this.expArith(),
+                this.match(LexicalUnit.DO),
+                this.code(),
+                this.match(LexicalUnit.ENDWHILE)));
 
     }
 
     private ParseTree read() throws ParseException, IOException {
      rules.add(48);
      return new ParseTree(new Symbol(NotTerminal.Read), Arrays.asList(new ParseTree[]{this.match(LexicalUnit.READ),
-        this.match(LexicalUnit.LEFT_PARENTHESIS),
+        this.match(LexicalUnit.LEFTPARENTHESIS),
         this.match(LexicalUnit.VARNAME),
-        this.match(LexicalUnit.RIGHT_PARENTHESIS)}));
+        this.match(LexicalUnit.RIGHTPARENTHESIS)}));
     }
 
     private ParseTree printP()throws ParseException, IOException {
      rules.add(47);
      return new ParseTree(new Symbol(NotTerminal.Print), Arrays.asList(new ParseTree[]{this.match(LexicalUnit.PRINT),
-        this.match(LexicalUnit.LEFT_PARENTHESIS),
+        this.match(LexicalUnit.LEFTPARENTHESIS),
         this.match(LexicalUnit.VARNAME),
-        this.match(LexicalUnit.RIGHT_PARENTHESIS)}));
+        this.match(LexicalUnit.RIGHTPARENTHESIS)}));
     }
 
     private ParseTree whileP() throws ParseException, IOException {
@@ -219,7 +219,7 @@ public class Parser {
         switch (current.getType()){
             case NOT:
             case NUMBER:
-            case LEFT_PARENTHESIS:
+            case LEFTPARENTHESIS:
             case MINUS:
             case VARNAME:
                 rules.add(31);
@@ -233,7 +233,7 @@ public class Parser {
      switch (current.getType()){
         case NOT:
         case NUMBER:
-        case LEFT_PARENTHESIS:
+        case LEFTPARENTHESIS:
         case MINUS:
         case VARNAME:
             rules.add(34);
@@ -265,7 +265,7 @@ public class Parser {
                 rules.add(37);
                 return new ParseTree(new Symbol(NotTerminal.Condis), Arrays.asList(new ParseTree[]{new ParseTree(new Symbol(LexicalUnit.EPSILON))}));
             case NUMBER:
-            case LEFT_PARENTHESIS:
+            case LEFTPARENTHESIS:
             case MINUS:
             case VARNAME:
                 rules.add(38);
@@ -280,7 +280,7 @@ public class Parser {
     private ParseTree expArith() throws  ParseException, IOException{
         switch (current.getType()){
             case NUMBER:
-            case LEFT_PARENTHESIS:
+            case LEFTPARENTHESIS:
             case MINUS:
             case VARNAME:
                 rules.add(14);
@@ -308,14 +308,14 @@ public class Parser {
             case THEN:
             case ENDIF:
             case ELSE:
-            case RIGHT_PARENTHESIS:
+            case RIGHTPARENTHESIS:
             case AND:
             case ENDWHILE:
             case SEMICOLON:
             case GREATER:
-            case GREATER_EQUAL:
+            case GREATEREQUAL:
             case SMALLER:
-            case SMALLER_EQUAL:
+            case SMALLEREQUAL:
             case DIFFERENT:
             case EQUAL:
                 rules.add(16);
@@ -342,7 +342,7 @@ public class Parser {
     private ParseTree prodEx() throws  ParseException, IOException {
         switch (current.getType()){
             case NUMBER:
-            case LEFT_PARENTHESIS:
+            case LEFTPARENTHESIS:
             case MINUS:
             case VARNAME:
                 rules.add(17);
@@ -357,11 +357,11 @@ public class Parser {
             case NUMBER:
                 rules.add(23);
                 return new ParseTree(new Symbol(NotTerminal.ProdAtom), Arrays.asList(new ParseTree[]{this.match(LexicalUnit.NUMBER)}));
-            case LEFT_PARENTHESIS:
+            case LEFTPARENTHESIS:
                 rules.add(20);
-                return new ParseTree(new Symbol(NotTerminal.ProdAtom), Arrays.asList(new ParseTree[]{this.match(LexicalUnit.LEFT_PARENTHESIS),
+                return new ParseTree(new Symbol(NotTerminal.ProdAtom), Arrays.asList(new ParseTree[]{this.match(LexicalUnit.LEFTPARENTHESIS),
                 this.expArith(),
-                this.match(LexicalUnit.RIGHT_PARENTHESIS)}));
+                this.match(LexicalUnit.RIGHTPARENTHESIS)}));
             case MINUS:
                 rules.add(21);
                 return new ParseTree(new Symbol(NotTerminal.ProdAtom), Arrays.asList(new ParseTree[]{this.match(LexicalUnit.MINUS),
@@ -392,14 +392,14 @@ public class Parser {
             case THEN:
             case ENDIF:
             case ELSE:
-            case RIGHT_PARENTHESIS:
+            case RIGHTPARENTHESIS:
             case AND:
             case ENDWHILE:
             case SEMICOLON:
             case GREATER:
-            case GREATER_EQUAL:
+            case GREATEREQUAL:
             case SMALLER:
-            case SMALLER_EQUAL:
+            case SMALLEREQUAL:
             case DIFFERENT:
             case EQUAL:
                 rules.add(19);
@@ -427,18 +427,18 @@ public class Parser {
             case GREATER:
                 rules.add(41);
                 return new ParseTree(new Symbol(NotTerminal.Comp), Arrays.asList(new ParseTree[]{match(LexicalUnit.GREATER)}));
-            case GREATER_EQUAL:
+            case GREATEREQUAL:
                 rules.add(40);
-                return new ParseTree(new Symbol(NotTerminal.Comp), Arrays.asList(new ParseTree[]{match(LexicalUnit.GREATER_EQUAL)}));
+                return new ParseTree(new Symbol(NotTerminal.Comp), Arrays.asList(new ParseTree[]{match(LexicalUnit.GREATEREQUAL)}));
             case EQUAL:
                 rules.add(39);
                 return new ParseTree(new Symbol(NotTerminal.Comp), Arrays.asList(new ParseTree[]{match(LexicalUnit.EQUAL)}));
             case SMALLER:
                 rules.add(43);
                 return new ParseTree(new Symbol(NotTerminal.Comp), Arrays.asList(new ParseTree[]{match(LexicalUnit.SMALLER)}));
-            case SMALLER_EQUAL:
+            case SMALLEREQUAL:
                 rules.add(42);
-                return new ParseTree(new Symbol(NotTerminal.Comp), Arrays.asList(new ParseTree[]{match(LexicalUnit.SMALLER_EQUAL)}));
+                return new ParseTree(new Symbol(NotTerminal.Comp), Arrays.asList(new ParseTree[]{match(LexicalUnit.SMALLEREQUAL)}));
             case DIFFERENT:
                 rules.add(44);
                 return new ParseTree(new Symbol(NotTerminal.Comp), Arrays.asList(new ParseTree[]{match(LexicalUnit.DIFFERENT)}));

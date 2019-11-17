@@ -1,0 +1,14 @@
+\documentclass[border=5pt]{standalone}
+
+\usepackage{tikz}
+\usepackage{forest}
+
+\begin{document}
+
+\begin{forest}for tree={rectangle,draw, l sep=20pt}[{Program} [{BEG} ][{Code} [{InstList} [{Instruction} [{Read} [{READ} ][{LEFTPARENTHESIS} ][{VARNAME} ][{RIGHTPARENTHESIS} ]]][{Inst} [{SEMICOLON} ][{InstList} [{Instruction} [{Read} [{READ} ][{LEFTPARENTHESIS} ][{VARNAME} ][{RIGHTPARENTHESIS} ]]][{Inst} [{SEMICOLON} ][{InstList} [{Instruction} [{While} [{WHILE} ][{Cond} [{AndEpx} [{Condis} [{ExprArith} [{ProdEx} [{ProdAtom} [{VARNAME} ]][{ProdTail} [{EPSILON} ]]][{ExprTail} [{EPSILON} ]]][{Comp} [{DIFFERENT} ]][{ExprArith} [{ProdEx} [{ProdAtom} [{NUMBER} ]][{ProdTail} [{EPSILON} ]]][{ExprTail} [{EPSILON} ]]]][{CondTail} [{EPSILON} ]]][{OrExp} [{EPSILON} ]]][{DO} ][{Code} [{InstList} [{Instruction} [{Assign} [{VARNAME} ][{ASSIGN} ][{ExprArith} [{ProdEx} [{ProdAtom} [{VARNAME} ]][{ProdTail} [{EPSILON} ]]][{ExprTail} [{EPSILON} ]]]]][{Inst} [{SEMICOLON} ][{InstList} [{Instruction} [{While} [{WHILE} ][{Cond} [{AndEpx} [{Condis} [{ExprArith} [{ProdEx} [{ProdAtom} [{VARNAME} ]][{ProdTail} [{EPSILON} ]]][{ExprTail} [{EPSILON} ]]][{Comp} [{GREATEREQUAL} ]][{ExprArith} [{ProdEx} [{ProdAtom} [{VARNAME} ]][{ProdTail} [{EPSILON} ]]][{ExprTail} [{EPSILON} ]]]][{CondTail} [{EPSILON} ]]][{OrExp} [{EPSILON} ]]][{DO} ][{Code} [{InstList} [{Instruction} [{Assign} [{VARNAME} ][{ASSIGN} ][{ExprArith} [{ProdEx} [{ProdAtom} [{VARNAME} ]][{ProdTail} [{EPSILON} ]]][{ExprTail} [{AddSous} [{MINUS} ]][{ProdEx} [{ProdAtom} [{VARNAME} ]][{ProdTail} [{EPSILON} ]]][{ExprTail} [{EPSILON} ]]]]]][{Inst} [{EPSILON} ]]]][{ENDWHILE} ]]][{Inst} [{SEMICOLON} ][{InstList} [{Instruction} [{Assign} [{VARNAME} ][{ASSIGN} ][{ExprArith} [{ProdEx} [{ProdAtom} [{VARNAME} ]][{ProdTail} [{EPSILON} ]]][{ExprTail} [{EPSILON} ]]]]][{Inst} [{SEMICOLON} ][{InstList} [{Instruction} [{Assign} [{VARNAME} ][{ASSIGN} ][{ExprArith} [{ProdEx} [{ProdAtom} [{VARNAME} ]][{ProdTail} [{EPSILON} ]]][{ExprTail} [{EPSILON} ]]]]][{Inst} [{EPSILON} ]]]]]]]]]][{ENDWHILE} ]]][{Inst} [{SEMICOLON} ][{InstList} [{Instruction} [{Print} [{PRINT} ][{LEFTPARENTHESIS} ][{VARNAME} ][{RIGHTPARENTHESIS} ]]][{Inst} [{EPSILON} ]]]]]]]]]][{END} ]];
+\end{forest}
+
+\end{document}
+%% Local Variables:
+%% TeX-engine: pdflatex
+%% End:

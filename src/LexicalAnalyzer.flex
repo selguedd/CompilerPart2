@@ -47,15 +47,15 @@ UpToEnd		= ({Space}{Any}{EndOfLine}) | ({EndOfLine})
 	"CO"{Separator}			{yybegin(COMMENTS);} // go to ignore mode
 	"co"{UpToEnd}		{} //ignore all
 
-	"<="			{return new Symbol(LexicalUnit.SMALLER_EQUAL,yyline, yycolumn,yytext());}
-	">="			{return new Symbol(LexicalUnit.GREATER_EQUAL,yyline, yycolumn,yytext());}
+	"<="			{return new Symbol(LexicalUnit.SMALLEREQUAL,yyline, yycolumn,yytext());}
+	">="			{return new Symbol(LexicalUnit.GREATEREQUAL,yyline, yycolumn,yytext());}
 	"="			{return new Symbol(LexicalUnit.EQUAL,yyline, yycolumn,yytext());}
 	"/="			{return new Symbol(LexicalUnit.DIFFERENT,yyline, yycolumn,yytext());}
 	"<"			{return new Symbol(LexicalUnit.SMALLER,yyline, yycolumn,yytext());}
 	">"			{return new Symbol(LexicalUnit.GREATER,yyline, yycolumn,yytext());}
 	
-	"("			{return new Symbol(LexicalUnit.LEFT_PARENTHESIS,yyline, yycolumn,yytext());}
-	")"			{return new Symbol(LexicalUnit.RIGHT_PARENTHESIS,yyline, yycolumn,yytext());}
+	"("			{return new Symbol(LexicalUnit.LEFTPARENTHESIS,yyline, yycolumn,yytext());}
+	")"			{return new Symbol(LexicalUnit.RIGHTPARENTHESIS,yyline, yycolumn,yytext());}
 	"-"			{return new Symbol(LexicalUnit.MINUS,yyline, yycolumn,yytext());}
 	"+"			{return new Symbol(LexicalUnit.PLUS,yyline, yycolumn,yytext());}
 	":="			{return new Symbol(LexicalUnit.ASSIGN,yyline, yycolumn,yytext());}
