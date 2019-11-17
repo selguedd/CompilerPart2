@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bb578526-2582-4f62-be67-73e9d203d19f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/NotTerminal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LexicalUnit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LexicalUnit.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Symbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Symbol.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -77,7 +74,7 @@
       <workItem from="1573856461969" duration="8447000" />
       <workItem from="1573910346295" duration="11950000" />
       <workItem from="1573951170335" duration="5099000" />
-      <workItem from="1573983067708" duration="7272000" />
+      <workItem from="1573983067708" duration="8822000" />
     </task>
     <servers />
   </component>

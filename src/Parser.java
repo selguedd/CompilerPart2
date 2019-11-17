@@ -190,35 +190,32 @@ public class Parser {
         this.expArith()}));
     }
 
-    public void ifP() throws ParseException, IOException {
-        match(LexicalUnit.IF);
-        cond();
-        match(LexicalUnit.THEN);
-        code();
-        ifTail();
+    public ParseTree ifP() throws ParseException, IOException {
         rules.add(28);
-
+        return new ParseTree(new Symbol(NotTerminal.If), Arrays.asList(new ParseTree[]{this.match(LexicalUnit.IF),
+        this.cond(),
+        this.match(LexicalUnit.THEN),
+        this.code(),
+        this.ifTail()}));
     }
 
-    private void ifTail() throws ParseException, IOException {
+    private ParseTree ifTail() throws ParseException, IOException {
         switch (current.getType()){
             case ENDIF:
-                match(LexicalUnit.ENDIF);
                 rules.add(29);
-                break;
+                return new ParseTree(new Symbol(NotTerminal.IfTail), Arrays.asList(new ParseTree[]{this.match(LexicalUnit.ENDIF)}));
             case ELSE:
-                match(LexicalUnit.ELSE);
-                code();
-                match(LexicalUnit.ENDIF);
                 rules.add(30);
-                break;
+                return new ParseTree(new Symbol(NotTerminal.IfTail), Arrays.asList(new ParseTree[]{this.match(LexicalUnit.ELSE),
+                this.code(),
+                this.match(LexicalUnit.ENDIF)}));
             default:
                 throw new ParseException(current.getValue(),-1);
         }
 
     }
 
-    private void cond()  throws ParseException, IOException {
+    private ParseTree cond()  throws ParseException, IOException {
         switch (current.getType()){
             case NOT:
             case NUMBER:
@@ -226,15 +223,13 @@ public class Parser {
             case MINUS:
             case VARNAME:
                 rules.add(31);
-                andExp();
-                orExp();
-                break;
+                return new ParseTree(new Symbol(NotTerminal.Cond), Arrays.asList(new ParseTree[]{this.andExp(), this.orExp()}));
             default:
                 throw new ParseException(current.getValue(),-1);
         }
     }
 
-    private void andExp() throws ParseException, IOException {
+    private ParseTree andExp() throws ParseException, IOException {
      switch (current.getType()){
         case NOT:
         case NUMBER:
@@ -242,75 +237,68 @@ public class Parser {
         case MINUS:
         case VARNAME:
             rules.add(34);
-            condis();
-            condtail();
-            break;
+            return new ParseTree(new Symbol(NotTerminal.AndEpx), Arrays.asList(new ParseTree[]{this.condis(), this.condtail()}));
         default:
             throw new ParseException(current.getValue(),-1);
     }
     }
 
-    private void condtail()throws ParseException, IOException {
+    private ParseTree condtail()throws ParseException, IOException {
         switch (current.getType()){
             case OR:
             case DO:
             case THEN:
                 rules.add(36);
-                break;
+                return new ParseTree(new Symbol(NotTerminal.CondTail), Arrays.asList(new ParseTree[]{new ParseTree(new Symbol(LexicalUnit.EPSILON))}));
             case AND:
                 rules.add(35);
-                match(LexicalUnit.AND);
-                condis();
-                condtail();
-                break;
+                return new ParseTree(new Symbol(NotTerminal.CondTail), Arrays.asList(new ParseTree[]{this.match(LexicalUnit.AND),
+                this.condis(),
+                this.condtail()}));
             default:
                 throw new ParseException(current.getValue(),-1);
         }
     }
-    private void condis()throws  ParseException, IOException{
+    private ParseTree condis()throws  ParseException, IOException{
         switch (current.getType()){
             case NOT:
                 rules.add(37);
-                break;
+                return new ParseTree(new Symbol(NotTerminal.Condis), Arrays.asList(new ParseTree[]{new ParseTree(new Symbol(LexicalUnit.EPSILON))}));
             case NUMBER:
             case LEFT_PARENTHESIS:
             case MINUS:
             case VARNAME:
                 rules.add(38);
-                expArith();
-                comp();
-                expArith();
-                break;
+                return new ParseTree(new Symbol(NotTerminal.Condis), Arrays.asList(new ParseTree[]{this.expArith(),
+            this.comp(),
+            this.expArith()}));
             default:
                 throw new ParseException(current.getValue(),-1);
         }
     }
 
-    private void expArith() throws  ParseException, IOException{
+    private ParseTree expArith() throws  ParseException, IOException{
         switch (current.getType()){
             case NUMBER:
             case LEFT_PARENTHESIS:
             case MINUS:
             case VARNAME:
                 rules.add(14);
-                prodEx();
-                expTail();
-                break;
+                return new ParseTree(new Symbol(NotTerminal.ExprArith), Arrays.asList(new ParseTree[]{this.prodEx(),
+            this.expTail()}));
             default:
                 throw new ParseException(current.getValue(),-1);
         }
 
     }
 
-    private void expTail() throws  ParseException, IOException {
+    private ParseTree expTail() throws  ParseException, IOException {
         switch (current.getType()){
             case MINUS:
             case PLUS:
                 rules.add(15);
-                addSous();
-                prodEx();
-                expTail();
-                break;
+                return new ParseTree(new Symbol(NotTerminal.ExprTail), Arrays.asList(new ParseTree[]{this.addSous(),
+                        this.prodEx(), this.expTail()}));
             case DO:
             case OR:
             case END:
@@ -331,14 +319,14 @@ public class Parser {
             case DIFFERENT:
             case EQUAL:
                 rules.add(16);
-                break;
+                return new ParseTree(new Symbol(NotTerminal.ExprTail), Arrays.asList(new ParseTree[]{new ParseTree(new Symbol(LexicalUnit.EPSILON))}));
             default:
                 throw new ParseException(current.getValue(),-1);
         }
                 
     }
 
-    private void addSous() throws  ParseException, IOException {
+    private ParseTree addSous() throws  ParseException, IOException {
         switch (current.getType()){
             case MINUS:
                 rules.add(25);
