@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Parser {
     private LexicalAnalyzer scanner;
     private Symbol current;
-    private ArrayList<Integer> rules=new ArrayList<Integer>();
+    private ArrayList<Integer> rules = new ArrayList<Integer>();
 
  public Parser(FileReader source)throws FileNotFoundException, IOException, SecurityException{
      //final Scanner scan = new Scanner(iliusSource);
@@ -54,14 +54,14 @@ public class Parser {
           case PRINT:
           case READ:
           case FOR:
-              rules.add(2);
+              rules.add(3);
               instList();
               break;
           case END:
           case ENDWHILE:
           case ENDIF:
           case ELSE:
-              rules.add(3);
+              rules.add(2);
               break;
           default:
               throw new ParseException(current.getValue(),-1);
@@ -337,11 +337,11 @@ public class Parser {
     private void addSous() throws  ParseException, IOException {
         switch (current.getType()){
             case MINUS:
-                rules.add(24);
+                rules.add(25);
                 match(LexicalUnit.MINUS);
                 break;
             case PLUS:
-                rules.add(25);
+                rules.add(24);
                 match(LexicalUnit.PLUS);
                 break;
             default:
