@@ -409,65 +409,56 @@ public class Parser {
         }
     }
 
-    private void prodDiv() throws  ParseException, IOException {
+    private ParseTree prodDiv() throws  ParseException, IOException {
         switch (current.getType()){
             case TIMES:
-                match(LexicalUnit.TIMES);
                 rules.add(26);
-                break;
+                return new ParseTree(new Symbol(NotTerminal.ProdDiv), Arrays.asList(new ParseTree[]{match(LexicalUnit.TIMES)}));
             case DIVIDE:
-                match(LexicalUnit.DIVIDE);
                 rules.add(27);
-                break;
+                return new ParseTree(new Symbol(NotTerminal.ProdDiv), Arrays.asList(new ParseTree[]{match(LexicalUnit.DIVIDE)}));
             default:
                 throw new ParseException(current.getValue(),-1);
         }
     }
 
-    private void comp()throws  ParseException, IOException {
+    private ParseTree comp()throws  ParseException, IOException {
         switch (current.getType()){
             case GREATER:
-                match(LexicalUnit.GREATER);
                 rules.add(41);
-                break;
+                return new ParseTree(new Symbol(NotTerminal.Comp), Arrays.asList(new ParseTree[]{match(LexicalUnit.GREATER)}));
             case GREATER_EQUAL:
-                match(LexicalUnit.GREATER_EQUAL);
                 rules.add(40);
-                break;
+                return new ParseTree(new Symbol(NotTerminal.Comp), Arrays.asList(new ParseTree[]{match(LexicalUnit.GREATER_EQUAL)}));
             case EQUAL:
-                match(LexicalUnit.EQUAL);
                 rules.add(39);
-                break;
+                return new ParseTree(new Symbol(NotTerminal.Comp), Arrays.asList(new ParseTree[]{match(LexicalUnit.EQUAL)}));
             case SMALLER:
-                match(LexicalUnit.SMALLER);
                 rules.add(43);
-                break;
+                return new ParseTree(new Symbol(NotTerminal.Comp), Arrays.asList(new ParseTree[]{match(LexicalUnit.SMALLER)}));
             case SMALLER_EQUAL:
-                match(LexicalUnit.SMALLER_EQUAL);
                 rules.add(42);
-                break;
+                return new ParseTree(new Symbol(NotTerminal.Comp), Arrays.asList(new ParseTree[]{match(LexicalUnit.SMALLER_EQUAL)}));
             case DIFFERENT:
-                match(LexicalUnit.DIFFERENT);
                 rules.add(44);
-                break;
+                return new ParseTree(new Symbol(NotTerminal.Comp), Arrays.asList(new ParseTree[]{match(LexicalUnit.DIFFERENT)}));
             default:
                 throw new ParseException(current.getValue(),-1);
         }
     }
 
 
-    private void orExp()throws ParseException, IOException {
+    private ParseTree orExp()throws ParseException, IOException {
         switch (current.getType()){
             case OR:
-                match(LexicalUnit.OR);
                 rules.add(32);
-                andExp();
-                orExp();
-                break;
+                return new ParseTree(new Symbol(NotTerminal.OrExp), Arrays.asList(new ParseTree[]{this.match(LexicalUnit.OR),
+                this.andExp(),
+                this.orExp()}));
             case DO:
             case THEN:
                 rules.add(33);
-                break;
+                return new ParseTree(new Symbol(NotTerminal.OrExp), Arrays.asList(new ParseTree[]{new ParseTree(new Symbol(LexicalUnit.EPSILON))}));
             default:
             throw new ParseException(current.getValue(),-1);
         }
