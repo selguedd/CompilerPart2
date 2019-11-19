@@ -5,10 +5,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ParseTree.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/ParseTree.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ParseTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ParseTree.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Symbol.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Symbol.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Symbol.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Symbol.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/filename.tex" beforeDir="false" afterPath="$PROJECT_DIR$/src/filename.tex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test.txt" afterDir="false" />
     </list>
@@ -52,6 +51,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="IntelliLang.Configuration" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -88,7 +88,7 @@
       <workItem from="1573910346295" duration="11950000" />
       <workItem from="1573951170335" duration="5099000" />
       <workItem from="1573983067708" duration="10895000" />
-      <workItem from="1574114109462" duration="3129000" />
+      <workItem from="1574114109462" duration="10463000" />
     </task>
     <servers />
   </component>

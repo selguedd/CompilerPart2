@@ -1,4 +1,1 @@
-CO Euclid's algorithm CO
-begin
-  print(a)
-end
+read(b)

@@ -48,7 +48,6 @@ public class Parser {
         // Program is the initial symbol of the grammar
         // <Program> -->  BEG <Code> END
         rules.add(1);
-
         ParseTree parseTree = new ParseTree(new Symbol(NotTerminal.Program), Arrays.asList(new ParseTree[]{this.match(LexicalUnit.BEG),this.code(),this.match(LexicalUnit.END)}));
         return parseTree;
     }
