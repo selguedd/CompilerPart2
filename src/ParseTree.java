@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * leave is simply a tree with no children (its list of children is empty). This
  * class can also be seen as representing the Node of a tree, in which case a
  * tree is simply represented as its root.
- * 
+ *
  * @author Leo Exibard, Sarah Winter
  */
 
@@ -19,7 +19,7 @@ public class ParseTree {
 
     /**
      * Creates a singleton tree with only a root labeled by lbl.
-     * 
+     *
      * @param lbl The label of the root
      */
     public ParseTree(Symbol lbl) {
@@ -29,7 +29,7 @@ public class ParseTree {
 
     /**
      * Creates a tree with root labeled by lbl and children chdn.
-     * 
+     *
      * @param lbl  The label of the root
      * @param chdn Its children
      */
@@ -44,7 +44,7 @@ public class ParseTree {
     public String toLaTexTree() {
         StringBuilder treeTeX = new StringBuilder();
         treeTeX.append("[");
-        treeTeX.append("{" + label.toString() + "}");
+        treeTeX.append("{" + label.toTexString() + "}");
         treeTeX.append(" ");
 
         for (ParseTree child : children) {
@@ -61,7 +61,7 @@ public class ParseTree {
     public String toTikZ() {
         StringBuilder treeTikZ = new StringBuilder();
         treeTikZ.append("node {");
-        treeTikZ.append(label.toString());
+        treeTikZ.append(label.toTexString());
         treeTikZ.append("}\n");
         for (ParseTree child : children) {
             treeTikZ.append("child { ");
@@ -87,7 +87,7 @@ public class ParseTree {
      * better. <br>
      * <br>
      * The result can be used with the command:
-     * 
+     *
      * <pre>
      * lualatex some-file.tex
      * </pre>
@@ -102,7 +102,7 @@ public class ParseTree {
      * using the latex code of the tree
      */
     public String toForestPicture() {
-        return "\\begin{forest}for tree={rectangle,draw, l sep=20pt}" + toLaTexTree() + ";\n\\end{forest}";
+        return "\\begin{forest}for tree={rectangle, draw, l sep=20pt}" + toLaTexTree() + ";\n\\end{forest}";
     }
 
     /**
@@ -110,7 +110,7 @@ public class ParseTree {
      * <br>
      * <br>
      * The result can be used with the command:
-     * 
+     *
      * <pre>
      * pdflatex some-file.tex
      * </pre>
@@ -119,5 +119,4 @@ public class ParseTree {
         return "\\documentclass[border=5pt]{standalone}\n\n\\usepackage{tikz}\n\\usepackage{forest}\n\n\\begin{document}\n\n"
                 + toForestPicture() + "\n\n\\end{document}\n%% Local Variables:\n%% TeX-engine: pdflatex\n%% End:";
     }
-
 }

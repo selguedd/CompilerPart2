@@ -88,4 +88,16 @@ public class Symbol {
 
 	}
 
+
+	public String toTexString() {
+		if (this.isTerminal()) {
+			String value = this.value != null ? this.value.toString() : "null";
+			String type = this.type != null ? this.type.toString() : "null";
+			if (type.contains("_")) {
+				type = type.replace("_","'\\textunderscore ");
+			}
+			return "token: " + "$" + value + "$" + "lexical unit: " + type;
+		}
+		return "Non-terminal symbol";
+	}
 }
