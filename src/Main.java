@@ -87,7 +87,6 @@ public class Main{
 
 
 
-
 	public static void usage(){
 		System.out.println("java "+Main.class.getSimpleName()+" [file.il]");
 		System.out.println("\tWithout the source file, the program read from the standard input stream.");
