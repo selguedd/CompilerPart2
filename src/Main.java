@@ -47,7 +47,6 @@ public class Main{
 		 if (!boolV && !impParseTree){
 			 parse = new Parser(Source);
 			 parseTree = parse.start();
-
 			 parse.printRules();
 		 }
 		 if (boolV && !impParseTree){
