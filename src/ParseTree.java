@@ -48,7 +48,9 @@ public class ParseTree {
         treeTeX.append(" ");
 
         for (ParseTree child : children) {
+            if(child!=null){
             treeTeX.append(child.toLaTexTree());
+            }
         }
         treeTeX.append("]");
         return treeTeX.toString();
