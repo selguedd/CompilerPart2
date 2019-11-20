@@ -4,7 +4,7 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 
 public class Main{
-	public static void main(String[] args)throws FileNotFoundException, IOException, SecurityException{
+	public static void main(String[] args)throws IOException, SecurityException, ParserException {
 
 		if (args.length == 0) {
 			wrongArguments();
@@ -21,27 +21,21 @@ public class Main{
 		try {
 			Source = new FileReader(args[argNumber]);
 		} catch (IOException ioe) {
-			System.out.println("exception 24");
+			System.out.println("File not found: check your path");
 		}
 
-		for(int i = 0; i < args.length; ++i){
+		 for(int i = 0; i < args.length; ++i){
 			if(args[i].equals("-v")){
-				try {
-					parse = new Parser(Source);
-					parseTree = parse.start();
-				} catch (ParseException e) {
-					System.out.println("exception 33");
-				}
+
+				parse = new Parser(Source);
+				parseTree = parse.start();
+
 				parse.printRules();
 			}
 
 			if (args[i].equals("-wt")){
-				try {
 					parse = new Parser(Source);
-					parseTree = parse.start();
-				} catch (ParseException e) {
-					System.out.println("exxception 43");
-				}
+				    parseTree = parse.start();
 				if (parseTree != null) {
 					System.out.println("big lol");
 					String content = parseTree.toLaTeX();

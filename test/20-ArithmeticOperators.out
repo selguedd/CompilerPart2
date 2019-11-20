@@ -1,8 +1,0 @@
-token: =	lexical unit: EQUAL
-token: >=	lexical unit: GREATER_EQUAL
-token: >	lexical unit: GREATER
-token: <=	lexical unit: SMALLER_EQUAL
-token: <	lexical unit: SMALLER
-token: <	lexical unit: SMALLER
-token: >	lexical unit: GREATER
-Identifiers

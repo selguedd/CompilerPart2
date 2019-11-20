@@ -671,7 +671,7 @@ class LexicalAnalyzer {
             }  // fall though
             case 93: break;
             default:
-          { 	return new Symbol(LexicalUnit.ENDOFSTREAM,yyline, yycolumn);
+          { 	return new Symbol(LexicalUnit.END_OF_STREAM,yyline, yycolumn);
  }
         }
       }
@@ -718,12 +718,12 @@ class LexicalAnalyzer {
             // fall through
           case 46: break;
           case 9: 
-            { return new Symbol(LexicalUnit.LEFTPARENTHESIS,yyline, yycolumn,yytext());
+            { return new Symbol(LexicalUnit.LEFT_PARENTHESIS,yyline, yycolumn,yytext());
             } 
             // fall through
           case 47: break;
           case 10: 
-            { return new Symbol(LexicalUnit.RIGHTPARENTHESIS,yyline, yycolumn,yytext());
+            { return new Symbol(LexicalUnit.RIGHT_PARENTHESIS,yyline, yycolumn,yytext());
             } 
             // fall through
           case 48: break;
@@ -753,12 +753,12 @@ class LexicalAnalyzer {
             // fall through
           case 53: break;
           case 16: 
-            { return new Symbol(LexicalUnit.SMALLEREQUAL,yyline, yycolumn,yytext());
+            { return new Symbol(LexicalUnit.SMALLER_EQUAL,yyline, yycolumn,yytext());
             } 
             // fall through
           case 54: break;
           case 17: 
-            { return new Symbol(LexicalUnit.GREATEREQUAL,yyline, yycolumn,yytext());
+            { return new Symbol(LexicalUnit.GREATER_EQUAL,yyline, yycolumn,yytext());
             } 
             // fall through
           case 55: break;

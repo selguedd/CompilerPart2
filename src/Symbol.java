@@ -3,7 +3,7 @@ public class Symbol {
 	public static final Object NO_VALUE = null;
 
 	private final LexicalUnit type;
-	private final NotTerminal types;
+	private final NotTerminal terminal;
 	private final String value;
 	private final int line, column;
 	private  NotTerminal variable;
@@ -14,11 +14,11 @@ public class Symbol {
 		this.column = column;
 		this.value = value;
         this.variable = null;
-        this.types=null;
+        this.terminal=null;
 	}
 
     public Symbol(NotTerminal variable){
-	    this.types = variable;
+	    this.terminal = variable;
 	    this .value = null;
 	    this.line = UNDEFINED_POSITION;
 	    this.column = UNDEFINED_POSITION;
@@ -83,7 +83,7 @@ public class Symbol {
 			return type.toString();
 		}
 		else{
-			return types.toString();
+			return terminal.toString();
 		}
 
 	}
@@ -96,8 +96,8 @@ public class Symbol {
 			if (type.contains("_")) {
 				type = type.replace("_","'\\textunderscore ");
 			}
-			return "token: " + "$" + value + "$" + "lexical unit: " + type;
+			return "token: " + "$" + value + "$"+" " + "lexical unit: " + type;
 		}
-		return "Non-terminal symbol";
+		return terminal.toString();
 	}
 }

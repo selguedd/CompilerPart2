@@ -1,8 +1,0 @@
-token: begin	lexical unit: BEG
-token: end	lexical unit: END
-token: bedin	lexical unit: VARNAME
-token: end	lexical unit: END
-token: bedin	lexical unit: VARNAME
-token: begin	lexical unit: BEG
-Identifiers
-bedin	4

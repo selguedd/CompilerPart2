@@ -1,4 +1,0 @@
-begin
-  read(2a) ;
-  read(b) ;
-end
