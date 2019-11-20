@@ -11,8 +11,10 @@ public class Main{
 		}
 
 
-
-
+		boolean boolV = false;
+		boolean boolWT = false;
+		boolean boolTex = false;
+		String tex = ".tex";
 		int argNumber = args.length-1;
 		FileReader Source = null;
 		Parser parse = null;
@@ -26,30 +28,60 @@ public class Main{
 
 		 for(int i = 0; i < args.length; ++i){
 			if(args[i].equals("-v")){
+				boolV = true;
 
-				parse = new Parser(Source);
-				parseTree = parse.start();
-
-				parse.printRules();
 			}
 
 			if (args[i].equals("-wt")){
-					parse = new Parser(Source);
-				    parseTree = parse.start();
-				if (parseTree != null) {
-					System.out.println("big lol");
-					String content = parseTree.toLaTeX();
-					try {
-						Files.write(Paths.get("filename.tex"), content.getBytes());
-
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-
-				}
+				boolWT = true;
 			}
 
-		}
+			if (args[i].toLowerCase().contains(tex)){
+				boolTex = true;
+			}
+
+		 }
+
+		 boolean impParseTree = boolTex && boolWT;
+
+		 if (!boolV && !impParseTree){
+			 parse = new Parser(Source);
+			 parseTree = parse.start();
+
+			 parse.printRules();
+		 }
+		 if (boolV && !impParseTree){
+			 parse = new Parser(Source);
+			 parseTree = parse.start();
+			 parse.printRules();  //print special rules en principe
+		 }
+		 if (boolV && impParseTree){
+			 parse = new Parser(Source);
+			 parseTree = parse.start();
+			 // code pour imprimer un les trucs special lors du v ici
+			 parse.printRules();
+			 if (parseTree != null) {
+				 String content = parseTree.toLaTeX();
+				 try {
+					 Files.write(Paths.get("filename.tex"), content.getBytes());
+
+				 } catch (IOException e) {
+					 e.printStackTrace();
+				 } }
+		 }
+		 if (!boolV && impParseTree){
+			 parse = new Parser(Source);
+			 parseTree = parse.start();
+			 parse.printRules(); // check si il s'arrete ici ou pas ce gland
+			 if (parseTree != null) {
+				 String content = parseTree.toLaTeX();
+				 try {
+					 Files.write(Paths.get("filename.tex"), content.getBytes());
+
+				 } catch (IOException e) {
+					 e.printStackTrace();
+				 } }
+		 }
 
 	}
 
@@ -68,6 +100,9 @@ public class Main{
 				"\n\tA .tex file to write the parsetree on it\n");
 		System.exit(0);
 	}
+
+
+
 }
 
 
