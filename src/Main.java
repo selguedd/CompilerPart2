@@ -20,22 +20,17 @@ public class Main{
 		} catch (IOException ioe) {
 			System.out.println("File not found: check your path");
 		}
-
+		parse = new Parser(Source);
+		parseTree = parse.start();
+        parse.printRules();
 		 for(int i = 0; i < args.length; ++i){
 			if(args[i].equals("-v")){
-				parse = new Parser(Source);
-				if(parseTree==null){
-					parseTree = parse.start();
-				}
-				parse.printRules();
+
 
 			}
 
 			if (args[i].equals("-wt") && args[i+1].toLowerCase().contains(tex) ){
-				parse = new Parser(Source);
-				if(parseTree==null){
-					parseTree = parse.start();
-				}
+
 				String content = parseTree.toLaTeX();
 				try {
 					Files.write(Paths.get(args[i+1]), content.getBytes());

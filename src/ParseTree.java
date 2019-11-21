@@ -49,7 +49,7 @@ public class ParseTree {
 
         for (ParseTree child : children) {
             if(child!=null){
-            treeTeX.append(child.toLaTexTree());
+                treeTeX.append(child.toLaTexTree());
             }
         }
         treeTeX.append("]");
