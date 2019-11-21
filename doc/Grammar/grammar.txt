@@ -1,7 +1,7 @@
 <Program> -->  BEG <Code> END
 <Code> --> EPSILON
 <Code> --> <InstList>
-<InstList> --> <Instruction> <Ints>
+<InstList> --> <Instruction> <Inst>
 <Inst> --> SEMICOLON <InstList>
 <Inst> --> EPSILON
 <Instruction> --> <Assign>

@@ -1,8 +1,22 @@
+import com.sun.javafx.css.Rule;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+/**
+ * This class implements a recursive descent LL(1) parser, that will parse through the File given in argument
+ * and will detect the set of rules that were used.
+ * So we built a method for each and every rule of the Grammar, and in every of these method
+ * we implement the built of the parsetree with
+ * "ParseTree parseTree = new ParseTree(new Symbol(NotTerminal.Program), Arrays.asList ..."
+ * This class also contains the methods that will print out the rules, as well as the more verbose specification
+ * at the output of our program
+ *
+ * @author Salma and Naim
+ */
 
 public class Parser {
     private LexicalAnalyzer scanner;
@@ -504,6 +518,15 @@ public class Parser {
             System.out.print(rules.get(i)+" ");
         }
     }
+    public void printVerboseRules(){
+        Rules verboseRules = new Rules();
+        ArrayList<Integer> rulesDuplic = new ArrayList<Integer>();
+        rulesDuplic = removeDuplicates(rules);
+        System.out.print("\nHere is a more verbose specification of the rules that were used : \n");
+        for(int i = 0; i < rulesDuplic.size(); i++) {
+            System.out.print(rulesDuplic.get(i)+"- "+verboseRules.getRule(rulesDuplic.get(i)) + "\n");
+        }
+    }
     private String getErrorMatch(Symbol current,LexicalUnit expected){
         String message = "We expect a " + expected.toString() +" You give us "+ current.toString() +" at line "+ current.getLine();
         return message;
@@ -512,4 +535,13 @@ public class Parser {
         String message ="Parse exception at line "+ current.getLine()+ " : miss use of the rules !";
         return message;
     }
-}
+    public static <T> ArrayList<T> removeDuplicates(ArrayList<T> list) {
+        ArrayList<T> newList = new ArrayList<T>();
+        for (T element : list) {
+            if (!newList.contains(element)) {
+                newList.add(element);
+            }
+        }
+        return newList;
+    }
+    }

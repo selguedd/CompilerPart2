@@ -1,3 +1,10 @@
+/**
+ * The goal of this class is to enumerate the list of None-terminal variables
+ * that are in our grammar.
+ * We indeed use that list to build the parsetree
+ *
+ * @author Salma and Naim
+ */
 public enum NotTerminal {
     Program,
     Code,
