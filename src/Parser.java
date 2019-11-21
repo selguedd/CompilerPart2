@@ -75,6 +75,7 @@ public class Parser {
 
 
     public ParseTree instList() throws ParserException, IOException {
+       // <InstList> --> <Instruction> <Ints>
         switch (current.getType()){
             case IF:
             case VARNAME:
@@ -91,7 +92,8 @@ public class Parser {
     }
 
     private ParseTree inst() throws ParserException, IOException {
-
+        //<Inst> --> SEMICOLON <InstList>
+        //<Inst> --> EPSILON
         switch(current.getType()){
             case END:
             case ENDWHILE:
@@ -109,6 +111,12 @@ public class Parser {
     }
 
     public ParseTree instruction() throws ParserException, IOException {
+        //<Instruction> --> <Assign>
+        //<Instruction> --> <If>
+        //<Instruction> --> <While>
+        //<Instruction> --> <For>
+        //<Instruction> --> <Print>
+        //<Instruction> --> <Read>
         switch (current.getType()){
             case IF:
                 rules.add(8);
@@ -134,6 +142,7 @@ public class Parser {
     }
 
     private ParseTree forP() throws ParserException, IOException{
+        //<For> --> FOR [VARNAME] FROM <ExprArith> BY <ExprArith> TO <ExprArith> DO <Code> ENDWHILE
         rules.add(46);
         return new ParseTree(new Symbol(NotTerminal.For), Arrays.asList(this.match(LexicalUnit.FOR),
                 this.match(LexicalUnit.VARNAME),
@@ -150,6 +159,7 @@ public class Parser {
     }
 
     private ParseTree read() throws ParserException, IOException {
+        //<Read> --> READ LEFT_PARENTHESIS [VARNAME] RIGHT_PARENTHESIS
         rules.add(48);
         return new ParseTree(new Symbol(NotTerminal.Read), Arrays.asList(new ParseTree[]{this.match(LexicalUnit.READ),
                 this.match(LexicalUnit.LEFT_PARENTHESIS),
@@ -158,6 +168,7 @@ public class Parser {
     }
 
     private ParseTree printP()throws ParserException, IOException {
+        //<Print> --> PRINT LEFT_PARENTHESIS [VARNAME] RIGHT_PARENTHESIS
         rules.add(47);
         return new ParseTree(new Symbol(NotTerminal.Print), Arrays.asList(new ParseTree[]{this.match(LexicalUnit.PRINT),
                 this.match(LexicalUnit.LEFT_PARENTHESIS),
@@ -166,6 +177,7 @@ public class Parser {
     }
 
     private ParseTree whileP() throws ParserException, IOException {
+        //<While> --> WHILE <Cond> DO <Code> ENDWHILE
         rules.add(45);
         return new ParseTree(new Symbol(NotTerminal.While), Arrays.asList(new ParseTree[]{this.match(LexicalUnit.WHILE),
                 this.cond(),
@@ -175,6 +187,7 @@ public class Parser {
     }
 
     private ParseTree assign() throws ParserException, IOException {
+        //<Assign> --> [VARNAME] ASSIGN <ExprArith>
         rules.add(13);
         return new ParseTree(new Symbol(NotTerminal.Assign), Arrays.asList(new ParseTree[]{this.match(LexicalUnit.VARNAME),
                 this.match(LexicalUnit.ASSIGN),
@@ -182,6 +195,7 @@ public class Parser {
     }
 
     public ParseTree ifP() throws ParserException, IOException {
+        //<If> --> IF <Cond> THEN <Code> <IfTail>
         rules.add(28);
         return new ParseTree(new Symbol(NotTerminal.If), Arrays.asList(new ParseTree[]{this.match(LexicalUnit.IF),
                 this.cond(),
@@ -191,6 +205,8 @@ public class Parser {
     }
 
     private ParseTree ifTail() throws ParserException, IOException {
+        //<IfTail> --> ENDIF
+        //<IfTail> --> ELSE <Code> ENDIF
         switch (current.getType()){
             case ENDIF:
                 rules.add(29);
@@ -207,6 +223,7 @@ public class Parser {
     }
 
     private ParseTree cond()  throws ParserException, IOException {
+        //<Cond> --> <AndExp> <OrExp>
         switch (current.getType()){
             case NOT:
             case NUMBER:
@@ -221,6 +238,7 @@ public class Parser {
     }
 
     private ParseTree andExp() throws ParserException, IOException {
+        //<AndExp> --> <Condis> <CondTail>
         switch (current.getType()){
             case NOT:
             case NUMBER:
@@ -235,6 +253,8 @@ public class Parser {
     }
 
     private ParseTree condtail()throws ParserException, IOException {
+        //<CondTail>--> AND <Condis> <CondTail>
+        //<CondTail>--> EPSILON
         switch (current.getType()){
             case OR:
             case DO:
@@ -251,6 +271,8 @@ public class Parser {
         }
     }
     private ParseTree condis()throws ParserException, IOException{
+        //<Condis> --> NOT <Condis>
+        //<Condis> --> <ExprArith> <Comp> <ExprArith>
         switch (current.getType()){
             case NOT:
                 rules.add(37);
@@ -269,6 +291,7 @@ public class Parser {
     }
 
     private ParseTree expArith() throws ParserException, IOException{
+        //<ExprArith> --> <ProdEx> <ExprTail>
         switch (current.getType()){
             case NUMBER:
             case LEFT_PARENTHESIS:
@@ -284,6 +307,8 @@ public class Parser {
     }
 
     private ParseTree expTail() throws ParserException, IOException {
+        //<ExprTail>  --> <AddSous> <ProdEx> <ExprTail>
+        //<ExprTail>  --> EPSILON
         switch (current.getType()){
             case MINUS:
             case PLUS:
@@ -318,6 +343,8 @@ public class Parser {
     }
 
     private ParseTree addSous() throws ParserException, IOException {
+        //<AddSous> --> PLUS
+        //<AddSous> --> MINUS
         switch (current.getType()){
             case MINUS:
                 rules.add(25);
@@ -331,6 +358,7 @@ public class Parser {
     }
 
     private ParseTree prodEx() throws ParserException, IOException {
+        //<ProdEx> --> <ProdAtom> <ProdTail>
         switch (current.getType()){
             case NUMBER:
             case LEFT_PARENTHESIS:
@@ -344,6 +372,10 @@ public class Parser {
     }
 
     private ParseTree prodAtom() throws ParserException, IOException{
+        //<ProdAtom> --> LEFT_PARENTHESIS <ExprArith> RIGHT_PARENTHESIS
+        //<ProdAtom> --> MINUS <ProdAtom>
+        //<ProdAtom> --> [VARNAME]
+        //<ProdAtom> --> [NUMBER]
         switch (current.getType()){
             case NUMBER:
                 rules.add(23);
@@ -365,6 +397,8 @@ public class Parser {
         }
     }
     private ParseTree prodTail() throws ParserException, IOException{
+        //<ProdTail> --> <ProdDiv> <ProdAtom> <ProdTail>
+        //<ProdTail>  --> EPSILON
         switch (current.getType()){
             case TIMES:
             case DIVIDE:
@@ -401,6 +435,8 @@ public class Parser {
     }
 
     private ParseTree prodDiv() throws ParserException, IOException {
+        //<ProdDiv> --> TIMES
+        //<ProdDiv> --> DIVIDE
         switch (current.getType()){
             case TIMES:
                 rules.add(26);
@@ -414,6 +450,12 @@ public class Parser {
     }
 
     private ParseTree comp()throws ParserException, IOException {
+        //<Comp> --> EQUAL
+        //<Comp> --> GREATER_EQUAL
+        //<Comp> --> GREATER
+        //<Comp> --> SMALLER_EQUAL
+        //<Comp> --> SMALLER
+        //<Comp> --> DIFFERENT
         switch (current.getType()){
             case GREATER:
                 rules.add(41);
@@ -440,6 +482,8 @@ public class Parser {
 
 
     private ParseTree orExp()throws ParserException, IOException {
+        //<OrExp>--> OR <AndExp> <OrExp>
+        //<OrExp>--> EPSILON
         switch (current.getType()){
             case OR:
                 rules.add(32);

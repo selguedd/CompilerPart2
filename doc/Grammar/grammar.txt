@@ -2,8 +2,8 @@
 <Code> --> EPSILON
 <Code> --> <InstList>
 <InstList> --> <Instruction> <Ints>
-<Ints> --> SEMICOLON <InstList>
-<Ints> --> EPSILON
+<Inst> --> SEMICOLON <InstList>
+<Inst> --> EPSILON
 <Instruction> --> <Assign>
 <Instruction> --> <If>
 <Instruction> --> <While>
