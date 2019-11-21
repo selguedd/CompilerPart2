@@ -1,4 +1,4 @@
 begin
-c:= 2;
-a := -2 + 3 * (6 + 1) / 5
+a :=6;
+if a=5 then print(a) endif
 end
