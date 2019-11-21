@@ -3,7 +3,7 @@
  * that are in our grammar.
  * We indeed use that list to build the parsetree
  *
- * @author Salma and Naim
+ * @authors Salma El Gueddari, Naim Sassine
  */
 public enum NotTerminal {
     Program,

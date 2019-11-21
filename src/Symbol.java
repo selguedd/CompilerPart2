@@ -1,3 +1,9 @@
+/**
+ * We use this class to identify the different tokens matched while
+ * scanning the input text
+ *
+ * @authors Salma El Gueddari, Naim Sassine
+ */
 public class Symbol {
 	public static final int UNDEFINED_POSITION = -1;
 	public static final Object NO_VALUE = null;

@@ -1,6 +1,6 @@
 /**
  * This class is an enumartion of the different Terminals of our grammar
- * @author Salma and Naim
+ * @authors Salma El Gueddari, Naim Sassine
  */
 public enum LexicalUnit{
     VARNAME,

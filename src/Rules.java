@@ -1,6 +1,14 @@
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class enumerates all the rules of our grammar.
+ * This class can be used for many reasons when manipulating rules but we specially used in the
+ * class Parser, when we created the method printVerboseRules that will print out the complete
+ * rules identified while parsing if the user uses -v as an option
+ *
+ * @authors Salma El Gueddari, Naim Sassine
+ */
 public class Rules {
 
     private Map<Integer, String> dictionary = new HashMap<Integer, String>();

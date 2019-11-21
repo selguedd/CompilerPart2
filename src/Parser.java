@@ -15,7 +15,7 @@ import java.util.Arrays;
  * This class also contains the methods that will print out the rules, as well as the more verbose specification
  * at the output of our program
  *
- * @author Salma and Naim
+ * @authors Salma El Gueddari, Naim Sassine
  */
 
 public class Parser {

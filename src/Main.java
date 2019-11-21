@@ -4,12 +4,12 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 
 /**
- * Our Main class that contains the main function will be responsible of the execution of the whole code.
- * In this class, we majorly deal with the options that the user can enter, in fact :
+ * Our Main class that contains the main function will be responsible for the execution of the program.
+ * In this class, we also deal with the options that the user can enter, in fact :
  * -v will give him more details on the rules that were used
  * -wt filename.tex will write down (in latex) the parsetree in the .tex file given
  *
- * @author Salma and Naim
+ * @authors Salma El Gueddari, Naim Sassine
  */
 
 public class Main{
